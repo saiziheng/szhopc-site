@@ -7,7 +7,7 @@
 - 字体使用系统字体栈,不使用 `next/font/google`,避免受限网络下构建失败。
 - 页面数据拆到 `src/config/site.ts`、`src/data/works.ts`、`src/data/updates.ts`;首版只包含 Hero、作品集、Build in public、About、联系/关注。
 - 作品首批外链:校园需求板 `https://xuqiu.17szh.cn`;生态环境英语词汇 App `https://vocab.17szh.cn`。
-- GitHub 仓库:`https://github.com/saiziheng/szhopc-site`;Vercel 项目:`szh1/szhopc-site`;生产部署:`dpl_4kwidAWcfehyTwnEh9yNdZCyeT2n`。
+- GitHub 仓库:`https://github.com/saiziheng/szhopc-site`;Vercel 项目:`szh1/szhopc-site`;首个手动生产部署:`dpl_4kwidAWcfehyTwnEh9yNdZCyeT2n`,后续 GitHub push 会触发自动 production deploy,最新部署以 `npx vercel ls szhopc-site --scope szh1` 为准。
 - 阿里云 DNS 新增两条记录:`@ A 76.76.21.21 TTL 600` 与 `www CNAME cname.vercel-dns.com TTL 600`。
 
 ## 选型理由
@@ -36,7 +36,7 @@
 - 生产 `curl -I https://szhopc.cn`:HTTP/2 200,证书校验通过。
 - 生产 `curl -I https://www.szhopc.cn`:HTTP/2 200,证书校验通过。
 - 生产 Playwright 移动端 smoke:`PLAYWRIGHT_BASE_URL=https://szhopc.cn npm run test:e2e` 通过,确认首屏 Hero、作品集卡片与 `https://xuqiu.17szh.cn` 外链。
-- Vercel inspect:`szhopc-site-r57gymopn-szh1.vercel.app` 状态 Ready;alias 包含 `https://szhopc-site.vercel.app`。
+- Vercel inspect:production deployment 状态 Ready;alias 包含 `https://szhopc.cn`、`https://www.szhopc.cn` 和 `https://szhopc-site.vercel.app`。
 
 ## 内容种子
 
