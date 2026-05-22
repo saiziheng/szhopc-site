@@ -83,7 +83,7 @@ function WorksPanel() {
             href={work.href}
             target="_blank"
             rel="noreferrer"
-            className="fade-item group grid gap-5 py-7 outline-none transition md:grid-cols-[1fr_220px] md:items-center"
+            className="fade-item group relative grid gap-5 py-7 outline-none transition-[transform,background-color,color] duration-200 ease-out after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-[color:var(--accent)] after:transition-[width] after:duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-soft)] hover:after:w-full focus-visible:-translate-y-0.5 focus-visible:after:w-full focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)] md:grid-cols-[1fr_220px] md:items-center"
             style={{ animationDelay: `${index * 70}ms` }}
           >
             <div>
@@ -99,19 +99,23 @@ function WorksPanel() {
               <p className="mt-2 text-xs leading-6 text-[color:var(--muted)]">
                 {work.meta.join(" · ")}
               </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] underline-offset-4 group-hover:underline">
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] underline-offset-4 transition-[gap] duration-200 group-hover:gap-3 group-hover:underline">
                 打开作品
-                <ArrowIcon />
+                <span className="transition-transform duration-200 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1">
+                  <ArrowIcon />
+                </span>
               </span>
             </div>
-            <Image
-              src={work.preview}
-              alt=""
-              width={900}
-              height={520}
-              unoptimized
-              className="h-32 w-full rounded-sm object-cover md:h-28"
-            />
+            <div className="overflow-hidden rounded-sm border border-transparent transition-colors duration-200 group-hover:border-[color:var(--line)]">
+              <Image
+                src={work.preview}
+                alt=""
+                width={900}
+                height={520}
+                unoptimized
+                className="h-32 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.015] md:h-28"
+              />
+            </div>
           </a>
         ))}
       </div>
@@ -285,7 +289,7 @@ export default function Home() {
                   role="tab"
                   aria-selected={isActive}
                   aria-controls={`${tab.id}-panel`}
-                  className="rounded-sm px-3 py-2 text-sm font-medium text-[color:var(--muted)] outline-none transition hover:text-[color:var(--accent)] aria-selected:bg-[color:var(--accent)] aria-selected:text-white"
+                  className="whitespace-nowrap rounded-sm border border-transparent px-3 py-2 text-sm font-medium text-[color:var(--muted)] outline-none transition-[transform,color,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-px hover:bg-[color:var(--accent-soft)] hover:text-[color:var(--accent)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent)] aria-selected:border-[color:var(--line-strong)] aria-selected:bg-[color:var(--accent-soft)] aria-selected:text-[color:var(--accent)] aria-selected:shadow-[inset_0_-2px_0_var(--accent)]"
                   onClick={() => setActiveTab(tab.id)}
                 >
                   {tab.label}
@@ -324,21 +328,21 @@ export default function Home() {
                 联系/合作
               </button>
             </div>
-            <dl className="mt-6 flex items-center justify-between gap-2 border-t border-[color:var(--line)] pt-5">
-              {trustAnchors.map((anchor) => (
+            <dl className="mt-7 grid grid-cols-3 overflow-hidden border-y border-[color:var(--line)]">
+              {trustAnchors.map((anchor, index) => (
                 <div
                   key={anchor.label}
                   aria-label={`${anchor.value} · ${anchor.label}`}
-                  className="shrink-0"
+                  className={`min-w-0 px-2 py-4 text-center sm:px-4 ${
+                    index > 0 ? "border-l border-[color:var(--line)]" : ""
+                  }`}
                 >
-                  <div className="flex items-baseline gap-0.5 whitespace-nowrap">
-                    <dt className="font-serif text-base font-semibold leading-none text-[color:var(--foreground)]">
-                      {anchor.value}
-                    </dt>
-                    <dd className="text-[10px] leading-none text-[color:var(--muted)]">
-                      · {anchor.label}
-                    </dd>
-                  </div>
+                  <dt className="font-serif text-2xl font-semibold leading-none text-[color:var(--foreground)] sm:text-3xl">
+                    {anchor.value}
+                  </dt>
+                  <dd className="mt-2 break-words text-[11px] leading-5 text-[color:var(--muted)] sm:text-xs">
+                    {anchor.label}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -346,6 +350,7 @@ export default function Home() {
         </section>
 
         <section
+          key={activeTab}
           id={`${activeTab}-panel`}
           role="tabpanel"
           aria-labelledby={`${activeTab}-tab`}
