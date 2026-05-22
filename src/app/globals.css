@@ -79,12 +79,21 @@
 
 :root {
   --background: #FAF8F3;
+  --background-translucent: rgba(250, 248, 243, 0.88);
   --foreground: #1A1A1A;
   --accent: #1F3A5F;
+  --surface: #FFFDF8;
+  --surface-muted: #F4F0E8;
   --muted: rgba(26, 26, 26, 0.62);
   --line: rgba(31, 58, 95, 0.18);
   --line-strong: rgba(31, 58, 95, 0.34);
   --accent-soft: rgba(31, 58, 95, 0.07);
+  --warm-chip: rgba(182, 126, 59, 0.13);
+  --warm-ink: #8A5C27;
+  --sage-soft: rgba(85, 122, 99, 0.12);
+  --shadow-soft: 0 18px 48px rgba(31, 58, 95, 0.09);
+  --shadow-deep: 0 30px 90px rgba(31, 58, 95, 0.22);
+  --shadow-button: 0 14px 32px rgba(31, 58, 95, 0.18);
 }
 
 @theme inline {
@@ -134,6 +143,40 @@ svg {
 ::selection {
   background: var(--accent);
   color: var(--background);
+}
+
+.primary-cta,
+.primary-cta:hover,
+.primary-cta:focus {
+  color: #fff;
+}
+
+.hero-texture {
+  background:
+    radial-gradient(circle at 8% 16%, rgba(182, 126, 59, 0.12), transparent 26rem),
+    radial-gradient(circle at 88% 8%, rgba(31, 58, 95, 0.12), transparent 24rem),
+    linear-gradient(120deg, rgba(255, 253, 248, 0.9), rgba(250, 248, 243, 0.58));
+}
+
+.hero-texture::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-image:
+    linear-gradient(rgba(31, 58, 95, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 58, 95, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.88), transparent 78%);
+}
+
+.mock-phone {
+  transform: rotate(1.4deg);
+}
+
+@media (max-width: 640px) {
+  .mock-phone {
+    transform: none;
+  }
 }
 
 .stagger-panel {

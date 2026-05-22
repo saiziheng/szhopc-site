@@ -56,3 +56,41 @@
 - Hero 在 CTA 下新增 3 个轻量信任锚:`2 · 真实上线作品`、`100% · 可点开访问`、`持续 · build in public`;只使用当前真实可验证事实,不放夸大数字。
 - 作品 summary 改成用户收益表达,并新增 `meta: string[]` 渲染工程元信息,用小号灰字补足“已上线 / 技术栈 / 使用状态”等可信细节。
 - About 轻改为“一人公司”的价值主张:用 AI 跑通需求发现、原型开发、上线验证和复盘表达的完整闭环。
+
+## 2026-05-23 · commercial-pivot 高转化落地页升级
+
+### 关键事实
+
+- 分支:`feat/commercial-pivot`;本轮只做本地 review 分支,不部署、不推 origin、不碰 Vercel/DNS。
+- 首页从上一轮「文字列表式商业页」升级为 12 段商业落地页:Hero / 痛点 / 交付包 / 手机样张 / Before-After / 适合对象 / 3 步流程 / 试点规则 / 信任点 / 真实作品证明 / FAQ / 微信 CTA。
+- 视觉方向执行「专业商务·暖白升级」:保留暖白 `#FAF8F3` 与靛蓝 `#1F3A5F`,新增表面层、暖金提示色、轻网格纹理、柔和阴影和手机 mockup 层次。
+- `src/data/offer.ts` 扩展为商业落地页数据源,集中管理样张、before/after、流程、FAQ、信任点和适合对象。
+- 新增 `src/components/` 小组件:手机样张 mockup、Before/After 对比卡、3 步流程、段落标题和 inline SVG 图标。
+
+### 选型理由
+
+- 小生意老板先看“我能拿到什么”,所以把产出可视化前置到首屏和样张区,减少抽象 AI 解释。
+- 样张全部标「样张占位」,信任数据只保留 2 个真实上线作品,避免虚假案例 / 虚假证言。
+- 用原生 `details` 做 FAQ,用锚点做 CTA,不引入客户端状态和重型 UI 库,保持静态导出简单。
+- 组件拆分只围绕高复用视觉模块,页面仍是清晰的静态组合,方便 cc review 和后续替换真实案例。
+
+### 卡点与解法
+
+- 全局 `a { color: inherit }` 会覆盖 Tailwind `text-white`,导致主 CTA 蓝底文字发黑。解法:给主 CTA 加 `primary-cta` 类,在 `globals.css` 中强制白字。
+- Codex 内置 Browser 打开 `localhost` / `127.0.0.1` 被 `ERR_BLOCKED_BY_CLIENT` 拦截。解法:改用项目 Playwright 在本地 dev server 做桌面/移动截图、console 和交互验证。
+- `127.0.0.1:4322` 访问 dev server 时出现 Next HMR WebSocket 报错;使用 dev server 自身地址 `http://localhost:4322` 复测后 console 无错误。
+- 外部作品链接在测试环境打开会被网络拦截,测试改为验证 `href` 与可见信任信息,不依赖外网跳转成功。
+
+### 验证证据
+
+- `npm run lint`:通过。
+- `npm run typecheck`:通过。
+- `npm run build`:通过,静态路由包含 `/`、`/_not-found`、`/guides`、`/guides/placeholder`。
+- `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4322 npm run test:e2e`:通过,移动端覆盖 Hero、样张、Before/After、流程、FAQ、CTA、微信占位、作品 href 与横向溢出。
+- Playwright 本地预览:`http://localhost:4322`,桌面 1440x1000 与移动 375x900 均确认样张 / Before-After / 流程 / 联系 CTA 可见,无横向溢出,console 无 error/warning。
+
+### 占位清单
+
+- 微信号和二维码仍为占位,等待 szh 提供公开素材后替换。
+- 商业案例仍为「样张占位」,未写入虚假客户、虚假数据或虚假证言。
+- 真实作品证明仍只使用校园需求板与生态环境英语词汇 App 两个已上线作品。

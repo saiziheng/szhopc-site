@@ -1,48 +1,39 @@
 import { expect, test } from "@playwright/test";
 
-test("mobile homepage exposes hero, portfolio links, and campus external target", async ({
-  page,
-  context
+test("mobile commercial landing page renders samples, flow, FAQ, and contact CTA", async ({
+  page
 }) => {
   await page.goto("/");
 
   await expect(
     page.getByRole("heading", {
-      name: "一个人,把想法做成真实上线的产品"
+      name: "帮小生意用 AI 做获客内容和成交工具"
     })
   ).toBeVisible();
-  await expect(page.getByText("一人公司实践")).toBeVisible();
-  await expect(page.getByLabel("2 · 真实上线作品")).toBeVisible();
-  await expect(page.getByLabel("100% · 可点开访问")).toBeVisible();
-  await expect(page.getByLabel("持续 · build in public")).toBeVisible();
+  await expect(page.getByText("小生意 AI 获客内容试点").first()).toBeVisible();
+  await expect(page.getByText("真实上线作品").first()).toBeVisible();
+  await expect(page.getByText("虚假案例/证言").first()).toBeVisible();
 
-  const worksTab = page.getByRole("tab", { name: "作品" });
-  const updatesTab = page.getByRole("tab", { name: "公开进展" });
-  const guidesTab = page.getByRole("tab", { name: "指南" });
+  await expect(page.getByRole("heading", { name: "先让你看到“做出来长什么样”。" })).toBeVisible();
+  await expect(page.getByText("样张占位").first()).toBeVisible();
+  await expect(page.getByText("周末团购朋友圈样张")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "同一件事,换一种说法,客户更容易接住。" })).toBeVisible();
 
-  await expect(worksTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("heading", { name: "先诊断,再做样张,最后用真实反馈微调。" })).toBeVisible();
+  await expect(page.getByText("10 分钟诊断")).toBeVisible();
 
-  await updatesTab.click();
-  await expect(updatesTab).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByRole("heading", { name: "把进展写下来,让判断可追踪。" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "小老板通常会先问这些。" })).toBeVisible();
+  await page.getByText("一定要做网站吗?").click();
+  await expect(page.getByText("很多小生意先做朋友圈、短视频脚本和咨询话术就够了。")).toBeVisible();
 
-  await guidesTab.click();
-  await expect(guidesTab).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByText("指南列表暂空。")).toBeVisible();
+  await page.getByRole("link", { name: /申请一次免费诊断/ }).first().click();
+  await expect(page).toHaveURL(/#contact$/);
+  await expect(page.getByText("微信二维码").last()).toBeVisible();
+  await expect(page.getByText("待补：微信号").first()).toBeVisible();
 
-  const portfolioCta = page.getByRole("button", { name: /看作品/ }).first();
-  await portfolioCta.click();
-  await expect(worksTab).toHaveAttribute("aria-selected", "true");
-
-  const campusCard = page.getByRole("link", { name: /校园需求板/ });
-  await expect(campusCard).toHaveAttribute("href", "https://xuqiu.17szh.cn");
+  const campusLink = page.getByRole("link", { name: /校园需求板/ });
+  await expect(campusLink).toHaveAttribute("href", "https://xuqiu.17szh.cn");
   await expect(page.getByText("已上线 · Next.js + Postgres · 学生在用")).toBeVisible();
-
-  const popupPromise = context.waitForEvent("page");
-  await campusCard.click();
-  const popup = await popupPromise;
-  await expect(popup).toHaveURL(/https:\/\/xuqiu\.17szh\.cn\/?/);
-  await popup.close();
 
   const hasHorizontalOverflow = await page.evaluate(
     () => document.documentElement.scrollWidth > document.documentElement.clientWidth

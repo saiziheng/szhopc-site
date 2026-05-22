@@ -2,11 +2,11 @@
 
 > 给 AI / 新接手者 30 秒读懂这个项目的地图。**改代码后顺手更新这份**(谁最后动谁刷新)。
 > 配套:策略 / 决策的"为什么"看 vault `05-Vibe-Coding/szhopc-site/项目卡片.md`;过程黑匣子看 `docs/DEVLOG.md`。
-> 最后更新:2026-05-22(分支 feat/redesign-v2)
+> 最后更新:2026-05-23(分支 feat/commercial-pivot)
 
 ## 一句话架构
 
-szh 个人 IP 主域 hub(`szhopc.cn`)。Next.js App Router **纯静态导出**(`output: "export"`)、无后端 / 无数据库 / 无 `.env`;首页是单页 **tab 切换**(纯前端 useState,不真换页),指南另走独立静态路由。内容全部是 `src/config` + `src/data` 里的静态数据。
+szh 商业验证转化中枢(`szhopc.cn`)。Next.js App Router **纯静态导出**(`output: "export"`)、无后端 / 无数据库 / 无 `.env`;首页是移动优先的 12 段商业落地页,承接「熟人点击 -> 免费诊断 -> 试点交付 -> 反馈与转介绍」。内容全部来自 `src/config` + `src/data`,页面为静态 server component。
 
 ## 文件树 + 每文件职责(只列关键)
 
@@ -14,15 +14,22 @@ szh 个人 IP 主域 hub(`szhopc.cn`)。Next.js App Router **纯静态导出**(`
 src/
 ├── app/
 │   ├── layout.tsx          # 根布局:metadata(title/desc/canonical/OG)、<html lang=zh-CN>
-│   ├── page.tsx            # ⭐ 首页主文件("use client"):Hero + tab 导航 + 各 Panel,全部组件都在这
-│   ├── globals.css         # ⭐ 主题:自托管字体 @font-face + CSS 变量(配色)+ 动效 + 暗码 @theme
+│   ├── page.tsx            # ⭐ 首页主文件:12 段商业落地页组合,静态 server component
+│   ├── globals.css         # ⭐ 主题:自托管字体 @font-face + CSS 变量(配色/表面/阴影)+ 动效 + 暗码 @theme
 │   └── guides/
 │       ├── page.tsx        # /guides 指南列表页(独立路由,当前空)
 │       └── [slug]/page.tsx # /guides/<slug> 指南详情页(静态生成,dynamicParams=false)
+├── components/
+│   ├── before-after.tsx    # Before / After 对比卡
+│   ├── icons.tsx           # inline SVG 图标,无外部图标库
+│   ├── phone-mockup.tsx    # 手机样张 mockup + 样张列表
+│   ├── process-steps.tsx   # 3 步流程组件
+│   └── section-heading.tsx # 统一段落标题组件
 ├── config/
-│   └── site.ts             # ⭐ 文案源:TAGLINE、siteConfig(name/domain/url)、contactLinks
+│   └── site.ts             # ⭐ 文案源:TAGLINE、siteConfig、微信占位、contactLinks
 └── data/
     ├── works.ts            # 作品列表 works[](title/summary/href/preview)
+    ├── offer.ts            # ⭐ 商业落地页数据:痛点/交付/样张/before-after/流程/FAQ/信任点
     ├── updates.ts          # 公开进展 updates[](date/title/body)
     └── guides.ts           # 指南数据 guides[](当前空)+ 占位路由 + getGuideBySlug()
 public/
@@ -32,29 +39,30 @@ public/
 tests/home.spec.ts          # Playwright 移动端 smoke
 ```
 
-`page.tsx` 内部组件:`ArrowIcon` / `SectionHeading`(eyebrow+标题+body 的通用段头)/ `WorksPanel` / `UpdatesPanel` / `GuidesPanel` / `AboutPanel` / `ContactPanel` / `panels` 映射 / `Home`(持有 activeTab 状态)。
+首页 12 段:`Hero` / 痛点 / 交付包 / 手机样张 / Before-After / 适合对象 / 3 步流程 / 试点规则 / 信任点 / 真实作品证明 / FAQ / 最终微信 CTA。
 
 ## 数据流
 
-- **内容**:`src/config/site.ts` + `src/data/*.ts`(纯静态)→ 被 `page.tsx` 的各 Panel `import` 渲染。**无 fetch、无后端、无运行时数据**。
-- **首页交互**:`Home` 用 `useState<TabId>` 持有当前 tab → 顶部 nav 按钮 `setActiveTab` → 渲染 `panels[activeTab]`。**纯客户端切换,不改 URL、不刷新**。
-- **指南**:首页有一个「指南」tab(展示入口/列表),完整指南是独立路由 `/guides` 和 `/guides/<slug>`(`generateStaticParams` 从 `guideRoutes` 预生成)。
+- **内容**:`src/config/site.ts` + `src/data/offer.ts` + `src/data/works.ts`(纯静态)→ 被 `page.tsx` 和 `src/components/*` 渲染。**无 fetch、无后端、无运行时数据**。
+- **首页交互**:锚点跳转、FAQ 原生 `details`、外链作品。无客户端 state,保持静态导出简单。
+- **指南路由**:保留独立静态路由 `/guides` 和 `/guides/<slug>`(`generateStaticParams` 从 `guideRoutes` 预生成),但当前商业首页不再把指南作为主导航核心。
 
 ## 入口:要改什么 → 看哪
 
 | 我想改 | 去哪 |
 |---|---|
 | 文案 / tagline / 联系方式 | `src/config/site.ts` |
+| 落地页样张 / FAQ / 流程 / before-after | `src/data/offer.ts` |
 | 作品条目 | `src/data/works.ts` |
 | 公开进展时间线 | `src/data/updates.ts` |
 | 新增一篇指南 | `src/data/guides.ts` 加一条 → 自动生成 `/guides/<slug>` |
 | 配色 / 字体 / 动效 | `src/app/globals.css`(CSS 变量 `--accent` 等) |
-| 页面结构 / tab / Hero | `src/app/page.tsx` |
+| 页面结构 / Hero / 段落顺序 | `src/app/page.tsx` |
 | SEO / OG / 标题 | `src/app/layout.tsx` |
 
 ## 视觉令牌(改配色只动这里)
 
-`globals.css` `:root`:暖白底 `--background:#FAF8F3`、墨黑字 `--foreground:#1A1A1A`、单一强调靛蓝 `--accent:#1F3A5F`、`--muted` / `--line` / `--line-strong` / `--accent-soft`。字体:标题 `--font-serif`(Noto Serif SC),正文 `--font-sans`(Noto Sans SC),均自托管。
+`globals.css` `:root`:暖白底 `--background:#FAF8F3`、墨黑字 `--foreground:#1A1A1A`、单一强调靛蓝 `--accent:#1F3A5F` 不改;新增 `--surface`、`--surface-muted`、`--warm-chip`、`--warm-ink`、`--shadow-*` 做「专业商务·暖白升级」层次。字体:标题 `--font-serif`(Noto Serif SC),正文 `--font-sans`(Noto Sans SC),均自托管。
 
 ## 外部依赖 / 服务
 
