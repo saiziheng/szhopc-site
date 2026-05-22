@@ -71,7 +71,7 @@ function WeChatCard() {
         </div>
         <div>
           <p className="text-sm font-medium text-[color:var(--accent)]">微信优先</p>
-          <p className="mt-1 text-xs text-[color:var(--muted)]">素材待 szh 提供,当前为清晰占位。</p>
+          <p className="mt-1 text-xs text-[color:var(--muted)]">扫码加我,聊聊你的获客问题。</p>
         </div>
       </div>
       <div className="mt-5 grid gap-5 sm:grid-cols-[9rem_1fr] sm:items-center">
@@ -88,7 +88,11 @@ function WeChatCard() {
           )}
         </div>
         <div>
-          <p className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">{wechat.id}</p>
+          {wechat.id ? (
+            <p className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">{wechat.id}</p>
+          ) : (
+            <p className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">扫码加我微信</p>
+          )}
           <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{wechat.note}</p>
           <p className="mt-4 text-sm leading-7 text-[color:var(--foreground)]">
             加我微信,说一句你做什么生意、最近最想解决哪个获客问题,我先免费帮你看一版。

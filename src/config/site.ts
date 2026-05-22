@@ -8,17 +8,17 @@ export const siteConfig = {
     "帮餐饮、直播、民宿、饰品、二手车、本地服务等小生意,用 AI 快速做出朋友圈文案、短视频脚本、客户咨询话术和简单获客页面。第一批免费 / 低价试点。"
 } as const;
 
-// 微信为主。二维码 / 微信号素材待 szh 提供,先占位,不编造联系方式。
+// 微信为主。szh 定稿:只展示二维码,不显示微信号文本(扫码即可加)。
 export const wechat = {
-  id: "（待补：微信号）",
-  qrcode: null as string | null, // 待补：放入 public/ 后填 "/wechat-qr.png"
+  id: null as string | null, // szh 选定不显示微信号文本,扫码加好友
+  qrcode: "/wechat-qr.png" as string | null,
   note: "加微信请备注「获客试点」"
 } as const;
 
 export const contactLinks = [
   {
     label: "微信",
-    value: "（待补：微信号）",
+    value: "扫码添加",
     href: null
   },
   {
