@@ -1,4 +1,4 @@
-export const TAGLINE = "用 AI 协作,一个人交付真实产品";
+export const TAGLINE = "一个人,把想法做成真实上线的产品";
 
 export const siteConfig = {
   name: "szh",

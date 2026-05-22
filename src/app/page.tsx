@@ -20,8 +20,14 @@ const tabs: Array<{ id: TabId; label: string }> = [
 
 const aboutPoints = [
   "在校学生,正在用 AI 协作、代码、内容和复盘完成真实小产品。",
-  "一人公司实践的核心不是包装身份,而是把需求发现、原型开发、交付验证和公开表达连成闭环。",
+  "用 AI 跑通需求发现、原型开发、上线验证和复盘表达的完整闭环。",
   "当前重点是作品集与个人 IP:先做出真实作品,再把过程讲清楚,让信任慢慢长出来。"
+];
+
+const trustAnchors = [
+  { value: "2", label: "真实上线作品" },
+  { value: "100%", label: "可点开访问" },
+  { value: "持续", label: "build in public" }
 ];
 
 function ArrowIcon() {
@@ -89,6 +95,9 @@ function WorksPanel() {
               </h3>
               <p className="mt-3 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
                 {work.summary}
+              </p>
+              <p className="mt-2 text-xs leading-6 text-[color:var(--muted)]">
+                {work.meta.join(" · ")}
               </p>
               <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] underline-offset-4 group-hover:underline">
                 打开作品
@@ -315,6 +324,24 @@ export default function Home() {
                 联系/合作
               </button>
             </div>
+            <dl className="mt-6 flex items-center justify-between gap-2 border-t border-[color:var(--line)] pt-5">
+              {trustAnchors.map((anchor) => (
+                <div
+                  key={anchor.label}
+                  aria-label={`${anchor.value} · ${anchor.label}`}
+                  className="shrink-0"
+                >
+                  <div className="flex items-baseline gap-0.5 whitespace-nowrap">
+                    <dt className="font-serif text-base font-semibold leading-none text-[color:var(--foreground)]">
+                      {anchor.value}
+                    </dt>
+                    <dd className="text-[10px] leading-none text-[color:var(--muted)]">
+                      · {anchor.label}
+                    </dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 

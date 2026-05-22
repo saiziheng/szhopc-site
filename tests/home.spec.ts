@@ -8,10 +8,13 @@ test("mobile homepage exposes hero, portfolio links, and campus external target"
 
   await expect(
     page.getByRole("heading", {
-      name: "用 AI 协作,一个人交付真实产品"
+      name: "一个人,把想法做成真实上线的产品"
     })
   ).toBeVisible();
   await expect(page.getByText("一人公司实践")).toBeVisible();
+  await expect(page.getByLabel("2 · 真实上线作品")).toBeVisible();
+  await expect(page.getByLabel("100% · 可点开访问")).toBeVisible();
+  await expect(page.getByLabel("持续 · build in public")).toBeVisible();
 
   const worksTab = page.getByRole("tab", { name: "作品" });
   const updatesTab = page.getByRole("tab", { name: "公开进展" });
@@ -33,6 +36,7 @@ test("mobile homepage exposes hero, portfolio links, and campus external target"
 
   const campusCard = page.getByRole("link", { name: /校园需求板/ });
   await expect(campusCard).toHaveAttribute("href", "https://xuqiu.17szh.cn");
+  await expect(page.getByText("已上线 · Next.js + Postgres · 学生在用")).toBeVisible();
 
   const popupPromise = context.waitForEvent("page");
   await campusCard.click();
