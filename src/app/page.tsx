@@ -1,19 +1,27 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { type ReactNode, useState } from "react";
 import { contactLinks, siteConfig, TAGLINE } from "@/config/site";
+import { guides } from "@/data/guides";
 import { updates } from "@/data/updates";
 import { works } from "@/data/works";
 
-const navItems = [
-  { href: "#works", label: "作品" },
-  { href: "#updates", label: "公开进展" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "联系" }
+type TabId = "works" | "updates" | "guides" | "about" | "contact";
+
+const tabs: Array<{ id: TabId; label: string }> = [
+  { id: "works", label: "作品" },
+  { id: "updates", label: "公开进展" },
+  { id: "guides", label: "指南" },
+  { id: "about", label: "About" },
+  { id: "contact", label: "联系" }
 ];
 
 const aboutPoints = [
-  "河海大学在读,用 Codex、Coze、GitHub、Vercel 和 Obsidian 做真实项目。",
-  "正在实践学生版 OPC:需求发现、原型开发、内容传播、客户交付、复盘沉淀。",
-  "当前主线是 vibe coding 作品集与个人 IP,先把真实小作品做出来、讲清楚、沉淀下来。"
+  "在校学生,正在用 AI 协作、代码、内容和复盘完成真实小产品。",
+  "一人公司实践的核心不是包装身份,而是把需求发现、原型开发、交付验证和公开表达连成闭环。",
+  "当前重点是作品集与个人 IP:先做出真实作品,再把过程讲清楚,让信任慢慢长出来。"
 ];
 
 function ArrowIcon() {
@@ -24,223 +32,301 @@ function ArrowIcon() {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.8"
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M9 7h8v8" />
     </svg>
   );
 }
 
-export default function Home() {
+function SectionHeading({
+  eyebrow,
+  title,
+  body
+}: {
+  eyebrow: string;
+  title: string;
+  body: string;
+}) {
   return (
-    <main>
-      <section className="hero-shell relative isolate min-h-[92svh] overflow-hidden px-5 pb-12 pt-5 text-white sm:px-8 lg:px-10">
-        <Image
-          src="/opc-workbench.svg"
-          alt=""
-          aria-hidden="true"
-          fill
-          priority
-          unoptimized
-          sizes="100vw"
-          className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,12,18,0.93)_0%,rgba(9,12,18,0.74)_47%,rgba(9,12,18,0.42)_100%)]" />
+    <div className="grid gap-5 border-b border-[color:var(--line)] pb-8 md:grid-cols-[0.85fr_1.15fr] md:items-end">
+      <div>
+        <p className="text-sm font-medium tracking-normal text-[color:var(--accent)]">{eyebrow}</p>
+        <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-[color:var(--foreground)] sm:text-4xl">
+          {title}
+        </h2>
+      </div>
+      <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">{body}</p>
+    </div>
+  );
+}
 
-        <header className="mx-auto flex max-w-6xl items-center justify-between gap-5">
-          <a href="#" className="text-base font-semibold tracking-normal text-white">
-            {siteConfig.name}
+function WorksPanel() {
+  return (
+    <div className="stagger-panel">
+      <SectionHeading
+        eyebrow="Portfolio"
+        title="真实作品,比说明更有说服力。"
+        body="首版只保留能打开、能验证、能继续复盘的作品。每个条目都指向真实线上结果,后续再补更完整的过程文章。"
+      />
+
+      <div className="mt-8 divide-y divide-[color:var(--line)]">
+        {works.map((work, index) => (
+          <a
+            key={work.href}
+            href={work.href}
+            target="_blank"
+            rel="noreferrer"
+            className="fade-item group grid gap-5 py-7 outline-none transition md:grid-cols-[1fr_220px] md:items-center"
+            style={{ animationDelay: `${index * 70}ms` }}
+          >
+            <div>
+              <p className="text-sm font-medium text-[color:var(--accent)]">
+                0{index + 1}
+              </p>
+              <h3 className="mt-2 font-serif text-2xl font-semibold leading-tight text-[color:var(--foreground)]">
+                {work.title}
+              </h3>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
+                {work.summary}
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--accent)] underline-offset-4 group-hover:underline">
+                打开作品
+                <ArrowIcon />
+              </span>
+            </div>
+            <Image
+              src={work.preview}
+              alt=""
+              width={900}
+              height={520}
+              unoptimized
+              className="h-32 w-full rounded-sm object-cover md:h-28"
+            />
           </a>
-          <nav aria-label="主导航" className="hidden items-center gap-7 text-sm text-white/74 md:flex">
-            {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="transition hover:text-white">
-                {item.label}
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function UpdatesPanel() {
+  return (
+    <div className="stagger-panel">
+      <SectionHeading
+        eyebrow="Build in public"
+        title="把进展写下来,让判断可追踪。"
+        body="公开进展不是流水账,而是记录我为什么做、做到了什么、下一步要验证什么。"
+      />
+
+      <div className="mt-8 divide-y divide-[color:var(--line)]">
+        {updates.map((update, index) => (
+          <article
+            key={`${update.date}-${update.title}`}
+            className="fade-item grid gap-3 py-6 md:grid-cols-[150px_1fr]"
+            style={{ animationDelay: `${index * 70}ms` }}
+          >
+            <time className="text-sm text-[color:var(--muted)]">{update.date}</time>
+            <div>
+              <h3 className="font-serif text-xl font-semibold text-[color:var(--foreground)]">
+                {update.title}
+              </h3>
+              <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{update.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GuidesPanel() {
+  return (
+    <div className="stagger-panel">
+      <SectionHeading
+        eyebrow="Guides"
+        title="以后把经验整理成可复用指南。"
+        body="这里预留指南列表。后续每篇指南会是独立静态路由,例如 /guides/<slug>,首页只负责展示入口。"
+      />
+
+      <div className="mt-8 border-y border-[color:var(--line)] py-8">
+        {guides.length === 0 ? (
+          <div className="max-w-2xl">
+            <p className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">
+              指南列表暂空。
+            </p>
+            <p className="mt-3 text-base leading-8 text-[color:var(--muted)]">
+              首批指南还没有放上来。等有稳定经验时,只需要在 `src/data/guides.ts`
+              加一条数据,再新增对应静态页内容。
+            </p>
+          </div>
+        ) : (
+          <div className="divide-y divide-[color:var(--line)]">
+            {guides.map((guide) => (
+              <a key={guide.slug} href={`/guides/${guide.slug}/`} className="block py-6">
+                <h3 className="font-serif text-xl font-semibold">{guide.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
+                  {guide.summary}
+                </p>
               </a>
             ))}
-          </nav>
-          <a
-            href="#contact"
-            className="rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white hover:text-[#111827]"
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AboutPanel() {
+  return (
+    <div className="stagger-panel">
+      <SectionHeading
+        eyebrow="About"
+        title="在校学生,一人公司实践。"
+        body="我不是把自己包装成大公司,而是在真实约束里练习:一个人借助 AI 完成产品、内容、交付和复盘。"
+      />
+
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
+        {aboutPoints.map((point, index) => (
+          <div
+            key={point}
+            className="fade-item border-t border-[color:var(--line)] pt-5"
+            style={{ animationDelay: `${index * 70}ms` }}
           >
-            联系/关注
-          </a>
-        </header>
-
-        <div className="mx-auto flex min-h-[calc(92svh-76px)] max-w-6xl items-center">
-          <div className="max-w-3xl pb-10 pt-16">
-            <h1 className="text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-              我是 szh,正在用 AI 协作完成真实项目。
-            </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-white/84 sm:text-2xl">
-              {TAGLINE}
-            </p>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white/64 sm:text-lg">
-              这里记录作品、公开进展和学生版 OPC 实践:不是商单交付页,而是让真实行动被看见的信任入口。
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#works"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
-              >
-                看作品集
-                <ArrowIcon />
-              </a>
-              <a
-                href="#updates"
-                className="inline-flex items-center justify-center rounded-md border border-white/22 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/55 hover:bg-white/8"
-              >
-                看公开进展
-              </a>
-            </div>
+            <p className="text-sm font-medium text-[color:var(--accent)]">0{index + 1}</p>
+            <p className="mt-3 text-base leading-8 text-[color:var(--muted)]">{point}</p>
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-      <section id="works" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="section-grid">
-            <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Portfolio</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-                先放真实可点开的作品。
-              </h2>
+function ContactPanel() {
+  return (
+    <div className="stagger-panel">
+      <SectionHeading
+        eyebrow="Contact"
+        title="想交流项目,或轻量合作,可以从公开入口找我。"
+        body="这个站保持信任向,不堆商单话术。真实商单、客户展示和交付入口仍放在 17szh.cn 体系里。"
+      />
+
+      <div className="mt-8 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
+        {contactLinks.map((link, index) => {
+          const row = (
+            <div
+              className="fade-item grid gap-2 py-5 md:grid-cols-[160px_1fr] md:items-center"
+              style={{ animationDelay: `${index * 70}ms` }}
+            >
+              <span className="text-sm font-medium text-[color:var(--accent)]">{link.label}</span>
+              <span className="font-serif text-xl font-semibold text-[color:var(--foreground)]">
+                {link.value}
+              </span>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              首版只展示已经能访问或可验证的项目。后续每个作品都继续补上开发过程、复盘和内容素材。
-            </p>
-          </div>
+          );
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {works.map((work) => (
+          if (link.href) {
+            return (
               <a
-                key={work.href}
-                href={work.href}
+                key={link.label}
+                href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="work-card group overflow-hidden rounded-md border border-[#dedbd1] bg-white text-[#111827] shadow-sm transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.12)]"
+                className="block outline-none transition hover:text-[color:var(--accent)]"
               >
-                <Image
-                  src={work.preview}
-                  alt=""
-                  width={900}
-                  height={520}
-                  unoptimized
-                  className="h-44 w-full object-cover"
-                />
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-5">
-                    <h3 className="text-xl font-semibold">{work.title}</h3>
-                    <span className="mt-1 rounded-full border border-[#d9d4c7] px-2.5 py-1 text-xs text-[#5c6472] group-hover:border-[#c9a45a]">
-                      外链
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-[#5c6472]">{work.summary}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#8f4f17]">
-                    打开作品
-                    <ArrowIcon />
-                  </span>
-                </div>
+                {row}
               </a>
-            ))}
-          </div>
-        </div>
-      </section>
+            );
+          }
 
-      <section id="updates" className="bg-[#111827] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="section-grid">
-            <div>
-              <p className="text-sm font-semibold text-[#f7c95f]">Build in public</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-                把过程留在台面上。
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base leading-7 text-white/66">
-              时间线先放首批占位,后续按项目真实进展更新。重点不是制造热闹,而是让判断、卡点和结果可追踪。
-            </p>
-          </div>
+          return <div key={link.label}>{row}</div>;
+        })}
+      </div>
+    </div>
+  );
+}
 
-          <div className="mt-10 divide-y divide-white/12 border-y border-white/12">
-            {updates.map((update) => (
-              <article key={`${update.date}-${update.title}`} className="grid gap-3 py-6 md:grid-cols-[150px_1fr]">
-                <time className="text-sm text-white/46">{update.date}</time>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{update.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/64">{update.body}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+const panels: Record<TabId, ReactNode> = {
+  works: <WorksPanel />,
+  updates: <UpdatesPanel />,
+  guides: <GuidesPanel />,
+  about: <AboutPanel />,
+  contact: <ContactPanel />
+};
 
-      <section id="about" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold text-[#9c5b20]">About</p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-              学生版 OPC 实践样本。
-            </h2>
-            <p className="mt-5 text-base leading-7 text-[#5c6472]">
-              我想验证的不是“大学生会不会用 AI 工具”,而是能不能借助 AI 完成从真实需求到可展示作品的最小闭环。
-            </p>
-          </div>
-          <div className="grid gap-3">
-            {aboutPoints.map((point) => (
-              <div key={point} className="rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-5">
-                <p className="text-base leading-7 text-[#263142]">{point}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+export default function Home() {
+  const [activeTab, setActiveTab] = useState<TabId>("works");
 
-      <section id="contact" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="section-grid">
-            <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Contact</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-                关注项目进展,从公开入口联系。
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              这里不放私人手机号。商单交付和客户 Demo 走 17szh.cn 体系,这个站只保留个人 IP 和作品集入口。
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {contactLinks.map((link) => {
-              const content = (
-                <>
-                  <span className="text-sm font-semibold text-[#8f4f17]">{link.label}</span>
-                  <span className="mt-3 block text-lg font-semibold text-[#111827]">{link.value}</span>
-                </>
-              );
-
-              if (link.href) {
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-md border border-[#dedbd1] bg-white p-5 transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
-                  >
-                    {content}
-                  </a>
-                );
-              }
+  return (
+    <main className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
+      <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 sm:px-8 lg:px-10">
+        <header className="flex flex-col gap-5 border-b border-[color:var(--line)] py-5 md:flex-row md:items-center md:justify-between">
+          <Link href="/" className="font-serif text-xl font-semibold text-[color:var(--foreground)]">
+            {siteConfig.name}
+          </Link>
+          <nav aria-label="主导航" className="-mx-1 flex gap-1 overflow-x-auto" role="tablist">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
 
               return (
-                <div key={link.label} className="rounded-md border border-[#dedbd1] bg-white p-5">
-                  {content}
-                </div>
+                <button
+                  key={tab.id}
+                  id={`${tab.id}-tab`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`${tab.id}-panel`}
+                  className="rounded-sm px-3 py-2 text-sm font-medium text-[color:var(--muted)] outline-none transition hover:text-[color:var(--accent)] aria-selected:bg-[color:var(--accent)] aria-selected:text-white"
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
               );
             })}
+          </nav>
+        </header>
+
+        <section className="grid gap-10 border-b border-[color:var(--line)] py-12 sm:py-16 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
+          <div>
+            <p className="text-sm font-medium text-[color:var(--accent)]">{siteConfig.domain}</p>
+            <h1 className="mt-5 font-serif text-5xl font-semibold leading-[1.08] text-[color:var(--foreground)] sm:text-6xl lg:text-7xl">
+              {TAGLINE}
+            </h1>
           </div>
-        </div>
-      </section>
+          <div>
+            <p className="text-lg leading-9 text-[color:var(--muted)]">
+              我是 szh。这里记录 AI 协作开发、真实小产品、公开进展和一人公司实践。
+              它不是商单落地页,而是一个持续更新的信任入口。
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-sm bg-[color:var(--accent)] px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
+                onClick={() => setActiveTab("works")}
+              >
+                看作品
+                <ArrowIcon />
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-sm border border-[color:var(--line-strong)] px-5 py-3 text-sm font-medium text-[color:var(--accent)] transition hover:bg-[color:var(--accent-soft)]"
+                onClick={() => setActiveTab("contact")}
+              >
+                联系/合作
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id={`${activeTab}-panel`}
+          role="tabpanel"
+          aria-labelledby={`${activeTab}-tab`}
+          className="min-h-[420px] flex-1 py-10 sm:py-14"
+        >
+          {panels[activeTab]}
+        </section>
+      </div>
     </main>
   );
 }

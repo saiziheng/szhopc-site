@@ -1,6 +1,6 @@
 # szhopc-site
 
-`szhopc.cn` personal IP hub for szh: portfolio, build in public updates, OPC practice identity, and trusted contact entry.
+`szhopc.cn` personal IP hub for szh: portfolio, build in public updates, one-person company practice, and trusted contact entry.
 
 ## Stack
 
@@ -8,7 +8,7 @@
 - TypeScript
 - Tailwind CSS
 - Static export (`next.config.ts` uses `output: "export"`)
-- System font stack only, no `next/font/google`
+- Self-hosted Noto Serif SC / Noto Sans SC woff2 subsets, no remote font loading
 
 ## Commands
 

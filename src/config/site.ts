@@ -1,11 +1,11 @@
-export const TAGLINE = "一个大学生的 AI 协作交付现场";
+export const TAGLINE = "用 AI 协作,一个人交付真实产品";
 
 export const siteConfig = {
-  name: "szh OPC",
+  name: "szh",
   domain: "szhopc.cn",
   url: "https://szhopc.cn",
   description:
-    "szh 的个人 IP hub,记录 AI 协作开发、vibe coding 作品集和学生版 OPC 实践。"
+    "szh 的个人 IP hub,记录 AI 协作开发、vibe coding 作品集和一人公司实践。"
 } as const;
 
 export const contactLinks = [
@@ -23,5 +23,10 @@ export const contactLinks = [
     label: "邮箱",
     value: "saizh0329 [at] gmail.com",
     href: null
+  },
+  {
+    label: "合作",
+    value: "商单交付仍走 17szh.cn",
+    href: "https://17szh.cn"
   }
 ] as const;

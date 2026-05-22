@@ -8,15 +8,28 @@ test("mobile homepage exposes hero, portfolio links, and campus external target"
 
   await expect(
     page.getByRole("heading", {
-      name: "我是 szh,正在用 AI 协作完成真实项目。"
+      name: "用 AI 协作,一个人交付真实产品"
     })
   ).toBeVisible();
-  await expect(page.getByText("一个大学生的 AI 协作交付现场")).toBeVisible();
+  await expect(page.getByText("一人公司实践")).toBeVisible();
 
-  const portfolioCta = page.getByRole("link", { name: /看作品集/ }).first();
-  await expect(portfolioCta).toHaveAttribute("href", "#works");
+  const worksTab = page.getByRole("tab", { name: "作品" });
+  const updatesTab = page.getByRole("tab", { name: "公开进展" });
+  const guidesTab = page.getByRole("tab", { name: "指南" });
+
+  await expect(worksTab).toHaveAttribute("aria-selected", "true");
+
+  await updatesTab.click();
+  await expect(updatesTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("heading", { name: "把进展写下来,让判断可追踪。" })).toBeVisible();
+
+  await guidesTab.click();
+  await expect(guidesTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByText("指南列表暂空。")).toBeVisible();
+
+  const portfolioCta = page.getByRole("button", { name: /看作品/ }).first();
   await portfolioCta.click();
-  await expect(page).toHaveURL(/#works$/);
+  await expect(worksTab).toHaveAttribute("aria-selected", "true");
 
   const campusCard = page.getByRole("link", { name: /校园需求板/ });
   await expect(campusCard).toHaveAttribute("href", "https://xuqiu.17szh.cn");
