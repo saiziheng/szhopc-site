@@ -1,9 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { contactLinks, siteConfig, TAGLINE } from "@/config/site";
+import { services } from "@/data/services";
 import { updates } from "@/data/updates";
 import { works } from "@/data/works";
 
 const navItems = [
+  { href: "#services", label: "能做什么" },
   { href: "#works", label: "作品" },
   { href: "#updates", label: "公开进展" },
   { href: "#about", label: "About" },
@@ -79,19 +82,55 @@ export default function Home() {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
-                href="#works"
+                href="#services"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
               >
-                看作品集
+                看能给你做什么
                 <ArrowIcon />
               </a>
               <a
-                href="#updates"
+                href="#works"
                 className="inline-flex items-center justify-center rounded-md border border-white/22 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/55 hover:bg-white/8"
               >
-                看公开进展
+                看作品集
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="section-grid">
+            <div>
+              <p className="text-sm font-semibold text-[#9c5b20]">Services</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+                能给你做什么。
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
+              三条承接方向,每条都基于已经在做的真实项目。点进去看具体能交付什么、给谁用、怎么开始。
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {services.map((service) => (
+              <Link
+                key={service.slug}
+                href={service.href}
+                className="group flex flex-col rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-6 transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
+              >
+                <h3 className="text-xl font-semibold text-[#111827]">{service.title}</h3>
+                <p className="mt-3 text-base leading-7 text-[#263142]">{service.oneLine}</p>
+                <p className="mt-4 text-sm leading-6 text-[#5c6472]">
+                  <span className="font-semibold text-[#8f4f17]">适合</span>:{service.audience}
+                </p>
+                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-[#8f4f17]">
+                  看一眼
+                  <ArrowIcon />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -205,7 +244,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              这里不放私人手机号。商单交付和客户 Demo 走 17szh.cn 体系,这个站只保留个人 IP 和作品集入口。
+              这里不放私人手机号。想合作 / 想试一次,从下面任一个公开入口找我,或先去服务页看具体怎么开始。
             </p>
           </div>
 
