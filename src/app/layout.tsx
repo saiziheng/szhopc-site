@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig, TAGLINE } from "@/config/site";
 
+const title = `${siteConfig.name} | ${TAGLINE}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: `${siteConfig.name} | ${TAGLINE}`,
+  title,
   description: siteConfig.description,
   alternates: {
     canonical: siteConfig.url
   },
   openGraph: {
-    title: `${siteConfig.name} | ${TAGLINE}`,
+    title,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,

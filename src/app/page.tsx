@@ -1,22 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contactLinks, siteConfig, TAGLINE } from "@/config/site";
+import { siteConfig, TAGLINE } from "@/config/site";
+import { about } from "@/data/about";
+import { causes } from "@/data/causes";
+import { contact } from "@/data/contact";
 import { services } from "@/data/services";
-import { updates } from "@/data/updates";
 import { works } from "@/data/works";
 
 const navItems = [
   { href: "#services", label: "能做什么" },
-  { href: "#works", label: "作品" },
-  { href: "#updates", label: "公开进展" },
+  { href: "#causes", label: "公益项目" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "联系" }
-];
-
-const aboutPoints = [
-  "河海大学在读,用 Codex、Coze、GitHub、Vercel 和 Obsidian 做真实项目。",
-  "正在实践学生版 OPC:需求发现、原型开发、内容传播、客户交付、复盘沉淀。",
-  "当前主线是 vibe coding 作品集与个人 IP,先把真实小作品做出来、讲清楚、沉淀下来。"
 ];
 
 function ArrowIcon() {
@@ -34,9 +29,30 @@ function ArrowIcon() {
   );
 }
 
+function ExternalArrow() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-3.5 w-3.5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
 export default function Home() {
+  const enterpriseWorks = works.filter((work) => work.category === "enterprise");
+  const causeWorks = works.filter((work) => work.category === "cause");
+  const learningWorks = works.filter((work) => work.category === "learning");
+  const featuredEnterprise = enterpriseWorks.find((work) => work.featured);
+
   return (
     <main>
+      {/* Hero */}
       <section className="hero-shell relative isolate min-h-[92svh] overflow-hidden px-5 pb-12 pt-5 text-white sm:px-8 lg:px-10">
         <Image
           src="/opc-workbench.svg"
@@ -65,51 +81,52 @@ export default function Home() {
             href="#contact"
             className="rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white hover:text-[#111827]"
           >
-            联系/关注
+            联系
           </a>
         </header>
 
         <div className="mx-auto flex min-h-[calc(92svh-76px)] max-w-6xl items-center">
           <div className="max-w-3xl pb-10 pt-16">
-            <h1 className="text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-              我是 szh,正在用 AI 协作完成真实项目。
-            </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-white/84 sm:text-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f7c95f]">
               {TAGLINE}
             </p>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white/64 sm:text-lg">
-              这里记录作品、公开进展和学生版 OPC 实践:不是商单交付页,而是让真实行动被看见的信任入口。
+            <h1 className="mt-5 text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+              用 AI 接住企业真实的麻烦事。
+            </h1>
+            <p className="mt-6 max-w-2xl text-xl leading-8 text-white/84 sm:text-2xl">
+              客服、文案、工具、流程——交付的是能用的成品,不是技术堆砌。
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#services"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
               >
-                看能给你做什么
+                看能做什么
                 <ArrowIcon />
               </a>
               <a
-                href="#works"
+                href="#causes"
                 className="inline-flex items-center justify-center rounded-md border border-white/22 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/55 hover:bg-white/8"
               >
-                看作品集
+                看公益项目
               </a>
             </div>
           </div>
         </div>
       </section>
 
+      {/* #services 能做什么 */}
       <section id="services" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
               <p className="text-sm font-semibold text-[#9c5b20]">Services</p>
               <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-                能给你做什么。
+                能做什么(替你解决的问题)。
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              三条承接方向,每条都基于已经在做的真实项目。点进去看具体能交付什么、给谁用、怎么开始。
+              三类常见痛点——重复的活、缺的工具、缺的内容。点进去看每一类怎么开始。
             </p>
           </div>
 
@@ -120,11 +137,17 @@ export default function Home() {
                 href={service.href}
                 className="group flex flex-col rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-6 transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
               >
-                <h3 className="text-xl font-semibold text-[#111827]">{service.title}</h3>
-                <p className="mt-3 text-base leading-7 text-[#263142]">{service.oneLine}</p>
-                <p className="mt-4 text-sm leading-6 text-[#5c6472]">
-                  <span className="font-semibold text-[#8f4f17]">适合</span>:{service.audience}
-                </p>
+                <h3 className="text-xl font-semibold text-[#111827]">▸ {service.title}</h3>
+                <ul className="mt-5 space-y-4">
+                  {service.items.map((item) => (
+                    <li key={item.text} className="text-sm leading-6 text-[#263142]">
+                      <p>{item.text}</p>
+                      {item.tail ? (
+                        <p className="mt-1 text-sm text-[#8f4f17]">→ {item.tail}</p>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
                 <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-[#8f4f17]">
                   看一眼
                   <ArrowIcon />
@@ -135,148 +158,289 @@ export default function Home() {
         </div>
       </section>
 
+      {/* #works 作品(分类) */}
       <section id="works" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
               <p className="text-sm font-semibold text-[#9c5b20]">Portfolio</p>
               <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-                先放真实可点开的作品。
+                作品。
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              首版只展示已经能访问或可验证的项目。后续每个作品都继续补上开发过程、复盘和内容素材。
+              企业案例 + 公益项目 + 学习工具,按类别分段。
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {works.map((work) => (
-              <a
-                key={work.href}
-                href={work.href}
-                target="_blank"
-                rel="noreferrer"
-                className="work-card group overflow-hidden rounded-md border border-[#dedbd1] bg-white text-[#111827] shadow-sm transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.12)]"
-              >
-                <Image
-                  src={work.preview}
-                  alt=""
-                  width={900}
-                  height={520}
-                  unoptimized
-                  className="h-44 w-full object-cover"
-                />
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-5">
-                    <h3 className="text-xl font-semibold">{work.title}</h3>
-                    <span className="mt-1 rounded-full border border-[#d9d4c7] px-2.5 py-1 text-xs text-[#5c6472] group-hover:border-[#c9a45a]">
-                      外链
-                    </span>
+          {/* 企业案例 — 大卡 */}
+          {featuredEnterprise ? (
+            <div className="mt-12">
+              <h3 className="text-base font-semibold text-[#9c5b20]">▸ 企业案例</h3>
+              <article className="mt-5 overflow-hidden rounded-md border border-[#dedbd1] bg-white shadow-sm">
+                {featuredEnterprise.preview ? (
+                  <Image
+                    src={featuredEnterprise.preview}
+                    alt=""
+                    width={1200}
+                    height={520}
+                    unoptimized
+                    className="h-56 w-full object-cover sm:h-72"
+                  />
+                ) : null}
+                <div className="p-6 sm:p-8">
+                  <h4 className="text-2xl font-semibold text-[#111827] sm:text-3xl">
+                    {featuredEnterprise.title}
+                  </h4>
+                  <p className="mt-4 text-base leading-7 text-[#263142]">
+                    {featuredEnterprise.summary}
+                  </p>
+                  {featuredEnterprise.stats ? (
+                    <p className="mt-3 text-sm leading-6 text-[#5c6472]">
+                      {featuredEnterprise.stats}
+                    </p>
+                  ) : null}
+                  <div className="mt-6">
+                    {featuredEnterprise.href ? (
+                      <a
+                        href={featuredEnterprise.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#8f4f17] hover:underline"
+                      >
+                        看详情
+                        <ArrowIcon />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#a8956b]">
+                        看详情(整理中)
+                      </span>
+                    )}
                   </div>
-                  <p className="mt-3 text-sm leading-6 text-[#5c6472]">{work.summary}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#8f4f17]">
-                    打开作品
-                    <ArrowIcon />
-                  </span>
                 </div>
-              </a>
-            ))}
-          </div>
+              </article>
+            </div>
+          ) : null}
+
+          {/* 公益项目 — 文字 list */}
+          {causeWorks.length > 0 ? (
+            <div className="mt-12">
+              <h3 className="text-base font-semibold text-[#9c5b20]">▸ 公益项目</h3>
+              <ul className="mt-5 divide-y divide-[#dedbd1] border-y border-[#dedbd1]">
+                {causeWorks.map((work) => (
+                  <li key={work.title} className="py-4">
+                    {work.href ? (
+                      <a
+                        href={work.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                      >
+                        <div>
+                          <span className="text-base font-semibold text-[#111827] group-hover:text-[#8f4f17]">
+                            {work.title}
+                          </span>
+                          <span className="ml-3 text-sm text-[#5c6472]">{work.summary}</span>
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-sm text-[#8f4f17]">
+                          {(work.href ?? "").replace(/^https?:\/\//, "")}
+                          <ExternalArrow />
+                        </span>
+                      </a>
+                    ) : (
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+                        <span className="text-base font-semibold text-[#111827]">{work.title}</span>
+                        <span className="text-sm text-[#5c6472]">{work.summary}</span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {/* 学习工具 — 文字 list */}
+          {learningWorks.length > 0 ? (
+            <div className="mt-12">
+              <h3 className="text-base font-semibold text-[#9c5b20]">▸ 学习工具</h3>
+              <ul className="mt-5 divide-y divide-[#dedbd1] border-y border-[#dedbd1]">
+                {learningWorks.map((work) => (
+                  <li key={work.title} className="py-4">
+                    {work.href ? (
+                      <a
+                        href={work.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                      >
+                        <div>
+                          <span className="text-base font-semibold text-[#111827] group-hover:text-[#8f4f17]">
+                            {work.title}
+                          </span>
+                          <span className="ml-3 text-sm text-[#5c6472]">{work.summary}</span>
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-sm text-[#8f4f17]">
+                          {(work.href ?? "").replace(/^https?:\/\//, "")}
+                          <ExternalArrow />
+                        </span>
+                      </a>
+                    ) : (
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+                        <span className="text-base font-semibold text-[#111827]">{work.title}</span>
+                        <span className="text-sm text-[#5c6472]">{work.summary}</span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </section>
 
-      <section id="updates" className="bg-[#111827] px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-10">
+      {/* #causes 公益项目 */}
+      <section id="causes" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#f7c95f]">Build in public</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
-                把过程留在台面上。
+              <p className="text-sm font-semibold text-[#9c5b20]">Causes</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+                公益项目。
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-white/66">
-              时间线先放首批占位,后续按项目真实进展更新。重点不是制造热闹,而是让判断、卡点和结果可追踪。
-            </p>
           </div>
 
-          <div className="mt-10 divide-y divide-white/12 border-y border-white/12">
-            {updates.map((update) => (
-              <article key={`${update.date}-${update.title}`} className="grid gap-3 py-6 md:grid-cols-[150px_1fr]">
-                <time className="text-sm text-white/46">{update.date}</time>
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{update.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/64">{update.body}</p>
-                </div>
-              </article>
-            ))}
+          <div className="mt-10 rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-8 sm:p-10">
+            <p className="text-xl leading-8 text-[#111827] sm:text-2xl">{causes.headline}</p>
+            <p className="mt-5 text-base leading-7 text-[#5c6472]">{causes.hookLine1}</p>
+            <p className="mt-3 text-base leading-7 text-[#5c6472]">{causes.hookLine2}</p>
+            <div className="mt-8">
+              <a
+                href={causes.ctaHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
+              >
+                {causes.ctaLabel}
+                <ArrowIcon />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="about" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold text-[#9c5b20]">About</p>
-            <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-              学生版 OPC 实践样本。
-            </h2>
-            <p className="mt-5 text-base leading-7 text-[#5c6472]">
-              我想验证的不是“大学生会不会用 AI 工具”,而是能不能借助 AI 完成从真实需求到可展示作品的最小闭环。
-            </p>
+      {/* #about */}
+      <section id="about" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="section-grid">
+            <div>
+              <p className="text-sm font-semibold text-[#9c5b20]">About</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+                {about.headline}
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">{about.intro}</p>
           </div>
-          <div className="grid gap-3">
-            {aboutPoints.map((point) => (
-              <div key={point} className="rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-5">
-                <p className="text-base leading-7 text-[#263142]">{point}</p>
+
+          <div className="mt-10 grid gap-3 md:grid-cols-3">
+            {about.pillars.map((pillar) => (
+              <div
+                key={pillar}
+                className="rounded-md border border-[#dedbd1] bg-white p-5"
+              >
+                <p className="text-base leading-7 text-[#263142]">▸ {pillar}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section id="contact" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="section-grid">
-            <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Contact</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
-                关注项目进展,从公开入口联系。
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
-              这里不放私人手机号。想合作 / 想试一次,从下面任一个公开入口找我,或先去服务页看具体怎么开始。
-            </p>
-          </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {about.ctas.map((cta) => {
+              const isExternal = cta.href.startsWith("http");
+              const baseClass =
+                "inline-flex items-center justify-center gap-2 rounded-md border border-[#dedbd1] bg-white px-5 py-3 text-sm font-semibold text-[#111827] transition hover:border-[#c9a45a] hover:text-[#8f4f17]";
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {contactLinks.map((link) => {
-              const content = (
-                <>
-                  <span className="text-sm font-semibold text-[#8f4f17]">{link.label}</span>
-                  <span className="mt-3 block text-lg font-semibold text-[#111827]">{link.value}</span>
-                </>
-              );
-
-              if (link.href) {
+              if (isExternal) {
                 return (
                   <a
-                    key={link.label}
-                    href={link.href}
+                    key={cta.label}
+                    href={cta.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-md border border-[#dedbd1] bg-white p-5 transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
+                    className={baseClass}
                   >
-                    {content}
+                    —— {cta.label}
                   </a>
                 );
               }
 
               return (
-                <div key={link.label} className="rounded-md border border-[#dedbd1] bg-white p-5">
-                  {content}
-                </div>
+                <a key={cta.label} href={cta.href} className={baseClass}>
+                  —— {cta.label}
+                </a>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* #contact */}
+      <section id="contact" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="section-grid">
+            <div>
+              <p className="text-sm font-semibold text-[#9c5b20]">Contact</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+                联系。
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
+              企业客户主要走微信。GitHub 看作品,邮箱备用。
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[0.55fr_0.45fr] lg:items-start">
+            <div className="rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-6 sm:p-8">
+              <p className="text-sm font-semibold text-[#8f4f17]">微信</p>
+              <div className="mt-5 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+                <Image
+                  src={contact.wechat.qrcode}
+                  alt="微信二维码"
+                  width={180}
+                  height={180}
+                  unoptimized
+                  className="h-44 w-44 rounded-md border border-[#dedbd1] bg-white"
+                />
+                <p className="text-base leading-7 text-[#263142]">{contact.wechat.note}</p>
+              </div>
+            </div>
+
+            <ul className="grid gap-3">
+              <li className="rounded-md border border-[#dedbd1] bg-white p-5">
+                <a
+                  href={contact.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-baseline justify-between gap-4 text-base font-semibold text-[#111827] hover:text-[#8f4f17]"
+                >
+                  <span>GitHub</span>
+                  <span className="text-sm font-normal text-[#5c6472]">
+                    {contact.github.replace(/^https?:\/\//, "")}
+                  </span>
+                </a>
+              </li>
+              <li className="rounded-md border border-[#dedbd1] bg-white p-5">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-base font-semibold text-[#111827]">邮箱</span>
+                  <span className="text-sm text-[#5c6472]">{contact.email}</span>
+                </div>
+              </li>
+              <li className="rounded-md border border-[#dedbd1] bg-white p-5">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-base font-semibold text-[#111827]">抖音</span>
+                  <span className="text-sm text-[#5c6472]">{contact.douyin}</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

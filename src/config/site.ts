@@ -1,13 +1,14 @@
-export const TAGLINE = "一个大学生的 AI 协作交付现场";
+export const TAGLINE = "AI 协作交付现场。";
 
 export const siteConfig = {
   name: "szh OPC",
   domain: "szhopc.cn",
   url: "https://szhopc.cn",
   description:
-    "szh 的个人 IP hub,记录 AI 协作开发、vibe coding 作品集和学生版 OPC 实践。"
+    "szh 的个人 IP hub。主站承接企业服务子域和公益矩阵入口——把麻烦的活、缺的工具、缺的内容做出来,把学校里有用的小工具做出来、被看见。"
 } as const;
 
+// 旧 fallback,新版联系信息走 src/data/contact.ts
 export const contactLinks = [
   {
     label: "抖音",
