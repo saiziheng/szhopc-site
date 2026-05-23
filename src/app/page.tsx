@@ -1,20 +1,9 @@
-import { BeforeAfterGrid } from "@/components/before-after";
-import { ArrowIcon, CheckIcon, MessageIcon, SparkIcon } from "@/components/icons";
-import { SampleOutputStrip, PhoneMockup } from "@/components/phone-mockup";
+import { ArrowIcon, CheckIcon, MessageIcon } from "@/components/icons";
+import { PhoneMockup } from "@/components/phone-mockup";
 import { ProcessSteps } from "@/components/process-steps";
 import { SectionHeading } from "@/components/section-heading";
-import { contactLinks, siteConfig, TAGLINE, wechat } from "@/config/site";
-import {
-  audiences,
-  beforeAfter,
-  deliverables,
-  faqs,
-  painPoints,
-  pilotRules,
-  processSteps,
-  sampleOutputs,
-  trustPoints
-} from "@/data/offer";
+import { siteConfig, TAGLINE, wechat } from "@/config/site";
+import { beforeAfter, pilotRules, processSteps, sampleOutputs } from "@/data/offer";
 import { works } from "@/data/works";
 import type { ReactNode } from "react";
 
@@ -46,12 +35,11 @@ function SecondaryCta({ href, children }: { href: string; children: ReactNode })
 function ProofStrip() {
   const items = [
     { value: "2", label: "真实上线作品" },
-    { value: "100%", label: "可点开访问" },
-    { value: "0", label: "虚假案例/证言" }
+    { value: "100%", label: "可点开访问" }
   ];
 
   return (
-    <div className="grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)] sm:grid-cols-3">
+    <div className="grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)] sm:grid-cols-2">
       {items.map((item) => (
         <div key={item.label} className="bg-[color:var(--surface)] px-4 py-4">
           <p className="font-serif text-3xl font-semibold text-[color:var(--accent)]">{item.value}</p>
@@ -127,6 +115,10 @@ function SectionShell({
 }
 
 export default function Home() {
+  // Jobs 5 段戏剧化结构,选 sample[0] 餐饮 + beforeAfter[0] 餐饮活动,在 Act 2 用同一场景把痛点 / 交付包 / 改写效果一次说清。
+  const featuredSample = sampleOutputs[0];
+  const featuredBeforeAfter = beforeAfter[0];
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
       <header className="sticky top-0 z-20 border-b border-[color:var(--line)] bg-[color:var(--background-translucent)] backdrop-blur-xl">
@@ -135,21 +127,24 @@ export default function Home() {
             {siteConfig.name}
           </a>
           <nav aria-label="主导航" className="hidden items-center gap-6 text-sm text-[color:var(--muted)] md:flex">
-            <a className="transition hover:text-[color:var(--accent)]" href="#samples">
-              样张
+            <a className="transition hover:text-[color:var(--accent)]" href="#example">
+              看例子
             </a>
             <a className="transition hover:text-[color:var(--accent)]" href="#process">
               流程
             </a>
-            <a className="transition hover:text-[color:var(--accent)]" href="#faq">
-              FAQ
+            <a className="transition hover:text-[color:var(--accent)]" href="#works">
+              作品
+            </a>
+            <a className="transition hover:text-[color:var(--accent)]" href="#contact">
+              联系
             </a>
           </nav>
           <PrimaryCta className="min-h-10 px-4 py-2 text-xs sm:text-sm" />
         </div>
       </header>
 
-      {/* 01 Hero */}
+      {/* Act 1 · ONE LINE — Hero */}
       <section id="top" className="relative border-b border-[color:var(--line)]">
         <div className="hero-texture absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] w-full max-w-6xl gap-10 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
@@ -159,181 +154,107 @@ export default function Home() {
               {TAGLINE}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-9 text-[color:var(--muted)]">
-              适合餐饮、直播、民宿、饰品、二手车、本地服务。先免费 / 低价做一版内容样张,让你能发出去、能回复客户、能判断有没有用。
+              先免费帮你做一版能直接发的朋友圈、短视频脚本和客户回复话术。你拿去发、拿去回客户,判断到底有没有用。
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryCta />
-              <SecondaryCta href="#samples">看手机样张</SecondaryCta>
+              <SecondaryCta href="#example">看一个真实例子</SecondaryCta>
             </div>
             <div className="mt-8 max-w-xl">
               <ProofStrip />
             </div>
           </div>
           <div className="fade-item lg:justify-self-end">
-            <PhoneMockup sample={sampleOutputs[0]} />
+            <PhoneMockup sample={featuredSample} />
           </div>
         </div>
       </section>
 
-      {/* 02 Pain */}
-      <SectionShell id="pain">
+      {/* Act 2 · ONE EXAMPLE — 一个具体场景把痛点+交付+改写一次说清 */}
+      <SectionShell id="example" tone="surface">
         <div className="stagger-panel">
           <SectionHeading
-            label="为什么需要"
-            title="不是生意不行,是每天都有客户在表达里漏掉。"
-            body="小老板最缺的通常不是复杂系统,而是一套能把产品、活动和咨询接住的内容表达。"
+            label="看一个真实场景"
+            title="朋友圈帖子,改前 vs 改后。"
+            body="不堆五条痛点和三种交付包。直接用一个餐饮老板的真实场景,让你看到「我能拿到什么」。"
           />
-          <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)] sm:grid-cols-2 lg:grid-cols-5">
-            {painPoints.map((point, index) => (
-              <article key={point.title} className="fade-item bg-[color:var(--surface)] p-5" style={{ animationDelay: `${index * 50}ms` }}>
-                <p className="font-serif text-xl font-semibold text-[color:var(--accent)]">0{index + 1}</p>
-                <h3 className="mt-4 font-serif text-lg font-semibold leading-tight text-[color:var(--foreground)]">{point.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{point.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 03 Deliverables */}
-      <SectionShell id="offer" tone="surface">
-        <div className="stagger-panel">
-          <SectionHeading label="交付内容" title={deliverables.headline} body={deliverables.note} />
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {deliverables.groups.map((group) => (
-              <article key={group.title} className="rounded-sm border border-[color:var(--line)] bg-[color:var(--background)] p-6 shadow-[var(--shadow-soft)]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--accent-soft)] text-[color:var(--accent)]">
-                  <SparkIcon />
+          <div className="mt-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="fade-item">
+              <PhoneMockup sample={featuredSample} />
+              <p className="mt-4 text-center text-xs leading-6 text-[color:var(--muted)]">
+                {featuredSample.channel} · {featuredSample.includes.join(" / ")}
+              </p>
+            </div>
+            <div className="fade-item">
+              <article className="overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--background)] shadow-[var(--shadow-soft)]">
+                <div className="border-b border-[color:var(--line)] px-5 py-4">
+                  <p className="text-sm font-medium text-[color:var(--accent)]">{featuredBeforeAfter.scene}</p>
                 </div>
-                <h3 className="mt-5 font-serif text-2xl font-semibold text-[color:var(--foreground)]">{group.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{group.body}</p>
-                <ul className="mt-5 space-y-3">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex gap-3 text-sm leading-7 text-[color:var(--foreground)]">
-                      <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-[color:var(--accent)]" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="grid gap-px bg-[color:var(--line)]">
+                  <div className="bg-[color:var(--surface-muted)] p-5">
+                    <p className="text-xs font-medium uppercase tracking-[0.12em] text-[color:var(--muted)]">改前</p>
+                    <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{featuredBeforeAfter.before}</p>
+                  </div>
+                  <div className="bg-[color:var(--background)] p-5">
+                    <p className="text-xs font-medium uppercase tracking-[0.12em] text-[color:var(--accent)]">改后</p>
+                    <p className="mt-3 text-sm leading-7 text-[color:var(--foreground)]">{featuredBeforeAfter.after}</p>
+                  </div>
+                </div>
+                <p className="px-5 py-4 text-xs leading-6 text-[color:var(--muted)]">{featuredBeforeAfter.note}</p>
               </article>
-            ))}
-          </div>
-          <p className="mt-5 text-sm leading-7 text-[color:var(--muted)]">{deliverables.more}</p>
-        </div>
-      </SectionShell>
-
-      {/* 04 Visual samples */}
-      <SectionShell id="samples">
-        <div className="stagger-panel">
-          <SectionHeading
-            label="产出可视化"
-            title="先让你看到“做出来长什么样”。"
-            body="下面是样张占位,不是已成交案例。真实试点完成后,再用脱敏截图和效果记录替换。"
-          />
-          <div className="mt-10">
-            <SampleOutputStrip samples={sampleOutputs} />
+              <p className="mt-5 text-base leading-8 text-[color:var(--foreground)]">
+                同一家餐饮店,同一个周末套餐——把「给谁、什么场景、下一步做什么」说完整,客户才接得住。我交付的就是这种能直接发的内容,不是一份 AI 报告。
+              </p>
+            </div>
           </div>
         </div>
       </SectionShell>
 
-      {/* 05 Before / After */}
-      <SectionShell id="before-after" tone="surface">
-        <div className="stagger-panel">
-          <SectionHeading
-            label="Before / After"
-            title="同一件事,换一种说法,客户更容易接住。"
-            body="这些是文案样张,用来展示改写方向:更具体、更像真人、更有下一步。"
-          />
-          <div className="mt-8">
-            <BeforeAfterGrid items={beforeAfter} />
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 06 Audiences */}
-      <SectionShell id="audience">
-        <div className="stagger-panel">
-          <SectionHeading
-            label="适合对象"
-            title="靠内容、咨询和老客转介绍跑生意的小老板。"
-            body="行业不需要完全一样,只要你现在有产品或服务,并且愿意把它更清楚地发出去。"
-          />
-          <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)] sm:grid-cols-2 lg:grid-cols-3">
-            {audiences.map((audience) => (
-              <article key={audience.name} className="bg-[color:var(--surface)] p-6">
-                <h3 className="font-serif text-xl font-semibold text-[color:var(--foreground)]">{audience.name}</h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{audience.scenario}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 07 Process */}
-      <SectionShell id="process" tone="surface">
+      {/* Act 3 · ONE PROMISE — 3 步开始 + 试点期前 5 个免费 */}
+      <SectionShell id="process">
         <div className="stagger-panel">
           <SectionHeading
             label="3 步开始"
-            title="先诊断,再做样张,最后用真实反馈微调。"
-            body="流程尽量轻,不让小老板被工具、表单和术语卡住。"
+            title="试点期前 5 个免费,先做样张再判断。"
+            body="不卖课、不推软件。先 10 分钟诊断,做一版你能直接发的样张,你试用后我们一起微调。"
           />
-          <div className="mt-8">
+          <div className="mt-10">
             <ProcessSteps steps={processSteps} />
           </div>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[0.4fr_1fr] lg:items-stretch">
+            <div className="flex flex-col justify-center rounded-sm border border-[color:var(--line-strong)] bg-[color:var(--accent-soft)] p-6">
+              <p className="text-sm font-medium text-[color:var(--accent)]">名额锚定</p>
+              <p className="mt-3 font-serif text-5xl font-semibold leading-none text-[color:var(--accent)]">
+                前 5 个
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
+                试点期免费,只换 3 件事——名额满后转低价。
+              </p>
+            </div>
+            <div className="rounded-sm border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-6 shadow-[var(--shadow-soft)]">
+              <h3 className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">{pilotRules.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{pilotRules.intro}</p>
+              <ul className="mt-5 space-y-3">
+                {pilotRules.rules.map((rule) => (
+                  <li key={rule} className="flex gap-3 text-sm leading-7 text-[color:var(--foreground)]">
+                    <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-[color:var(--accent)]" />
+                    <span>{rule}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 text-sm leading-7 text-[color:var(--muted)]">{pilotRules.note}</p>
+            </div>
+          </div>
         </div>
       </SectionShell>
 
-      {/* 08 Pilot rules */}
-      <SectionShell id="pilot">
-        <div className="stagger-panel grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
-            <p className="text-sm font-medium text-[color:var(--accent)]">试点规则</p>
-            <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight text-[color:var(--foreground)] sm:text-4xl">
-              第一批不卖课,也不推你买软件。
-            </h2>
-            <p className="mt-5 text-base leading-8 text-[color:var(--muted)]">{pilotRules.note}</p>
-          </div>
-          <div className="rounded-sm border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-6 shadow-[var(--shadow-soft)]">
-            <h3 className="font-serif text-2xl font-semibold text-[color:var(--foreground)]">{pilotRules.title}</h3>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{pilotRules.intro}</p>
-            <ul className="mt-5 space-y-3">
-              {pilotRules.rules.map((rule) => (
-                <li key={rule} className="flex gap-3 text-sm leading-7 text-[color:var(--foreground)]">
-                  <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-[color:var(--accent)]" />
-                  <span>{rule}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 09 Trust */}
-      <SectionShell id="trust" tone="surface">
+      {/* Act 4 · ONE TRUST — 真实作品证明 */}
+      <SectionShell id="works" tone="surface">
         <div className="stagger-panel">
           <SectionHeading
-            label="信任"
-            title="先把能验证的事摆出来。"
-            body="不编造客户证言、不写虚假结果。现阶段只展示真实上线作品、试点规则和样张占位。"
-          />
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {trustPoints.map((point) => (
-              <article key={point.title} className="rounded-sm border border-[color:var(--line)] bg-[color:var(--background)] p-6">
-                <h3 className="font-serif text-xl font-semibold text-[color:var(--foreground)]">{point.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">{point.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 10 Works proof */}
-      <SectionShell id="works">
-        <div className="stagger-panel">
-          <SectionHeading
-            label="真实作品证明"
-            title="已有 2 个上线作品,证明我能把东西做出来。"
-            body="它们不是商业案例,而是能力证明:需求收集、页面实现、上线访问、持续迭代。"
+            label="我能把东西做出来"
+            title="2 个真实上线作品,直接点开看。"
+            body="不写虚假证言、不编客户案例。先用真实作品证明能力——需求收集、页面实现、上线访问、持续迭代。"
           />
           <div className="mt-8 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
             {works.map((work) => (
@@ -361,54 +282,20 @@ export default function Home() {
         </div>
       </SectionShell>
 
-      {/* 11 FAQ */}
-      <SectionShell id="faq" tone="surface">
-        <div className="stagger-panel">
-          <SectionHeading label="FAQ" title="小老板通常会先问这些。" body="先把边界说清楚,避免你以为这是卖课、软件或复杂系统。" />
-          <div className="mt-8 divide-y divide-[color:var(--line)] rounded-sm border border-[color:var(--line)] bg-[color:var(--background)]">
-            {faqs.map((faq, index) => (
-              <details key={faq.question} className="group p-5" open={index === 0}>
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg font-semibold text-[color:var(--foreground)]">
-                  {faq.question}
-                  <span className="text-[color:var(--accent)] transition group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 max-w-3xl text-sm leading-7 text-[color:var(--muted)]">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* 12 Contact */}
+      {/* Act 5 · ONE ACTION — 加微信,聊 10 分钟 */}
       <SectionShell id="contact">
         <div className="stagger-panel">
           <SectionHeading
             label="开始一次免费诊断"
-            title="加微信,先聊清楚你现在最缺什么。"
-            body="缺客户、缺内容,还是缺一个能展示生意的页面？说一句你做什么,我先帮你看一版。"
+            title="加我微信,聊 10 分钟。"
+            body="说一句你做什么生意、最近最想解决的获客问题,我先免费帮你看一版。"
+            align="center"
           />
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="mx-auto mt-10 max-w-3xl">
             <WeChatCard />
-            <div className="rounded-sm border border-[color:var(--line)] bg-[color:var(--surface)] p-5">
-              <p className="text-sm font-medium text-[color:var(--accent)]">其他入口</p>
-              <div className="mt-4 divide-y divide-[color:var(--line)]">
-                {contactLinks.map((link) => {
-                  const row = (
-                    <div className="grid gap-1 py-4 sm:grid-cols-[88px_1fr] sm:items-center">
-                      <span className="text-sm font-medium text-[color:var(--accent)]">{link.label}</span>
-                      <span className="break-words text-base text-[color:var(--foreground)]">{link.value}</span>
-                    </div>
-                  );
-                  return link.href ? (
-                    <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="block transition hover:text-[color:var(--accent)]">
-                      {row}
-                    </a>
-                  ) : (
-                    <div key={link.label}>{row}</div>
-                  );
-                })}
-              </div>
-            </div>
+            <p className="mt-6 text-center text-xs leading-6 text-[color:var(--muted)]">
+              不方便加微信也可以邮件:saizh0329 [at] gmail.com
+            </p>
           </div>
         </div>
       </SectionShell>

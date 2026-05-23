@@ -94,3 +94,48 @@
 - 微信号和二维码仍为占位,等待 szh 提供公开素材后替换。
 - 商业案例仍为「样张占位」,未写入虚假客户、虚假数据或虚假证言。
 - 真实作品证明仍只使用校园需求板与生态环境英语词汇 App 两个已上线作品。
+
+## 2026-05-23 · Hero 重构为 Jobs 5 段戏剧化结构
+
+### 关键事实
+
+- 分支:`feat/commercial-pivot`;只本地 review,不部署、不推 origin/backup、不碰 Vercel/DNS。
+- 首页结构从 12 段(Hero / 痛点 / 交付包 / 样张 / Before-After / 适合对象 / 流程 / 试点规则 / 信任 / 作品 / FAQ / 联系)压缩为 5 段戏剧化(Jobs 5-act):
+  - **Act 1 · ONE LINE**(`#top`)— 保留 Hero 整体不动;TAGLINE / 副标题 / 2 个 CTA / 2 列 ProofStrip / PhoneMockup 全部保留。
+  - **Act 2 · ONE EXAMPLE**(`#example`)— 整段重写,用一个餐饮场景(`sampleOutputs[0]` + `beforeAfter[0]`)同时承载痛点、交付样张、改写效果。左栏 PhoneMockup,右栏 Before/After + 一行解读。
+  - **Act 3 · ONE PROMISE**(`#process`)— 整合原 Process(3 步)+ Pilot Rules,新增「前 5 个」名额锚定 chip,一段说清「怎么开始 + 试点规则 + 名额」。
+  - **Act 4 · ONE TRUST**(`#works`)— 真实作品列表(沿用 `data/works.ts`),不再放抽象 Trust 段;作品本身就是 trust。
+  - **Act 5 · ONE ACTION**(`#contact`)— 居中 WeChatCard,标题改为「加我微信,聊 10 分钟。」;删除「其他入口」blocks,只保留一行邮箱兜底。
+- 顶栏 nav 锚点从「样张/流程/FAQ」改成「看例子/流程/作品/联系」4 个锚点。
+- 顶栏 PrimaryCta 文案「申请一次免费诊断」**不动**(szh 反复打磨过);Hero SecondaryCta 从「看手机样张」改为「看一个真实例子」。
+- 删除的页内段:Pain(5 条)、Deliverables(3 块)、Sample strip(多张样张列表)、Before-After 其他 2 条、Audiences(6 行业)、Trust(3 个抽象信任点)、FAQ(6 条)、Contact 「其他入口」。
+- **数据保留**:`src/data/offer.ts` 字段一字不删(导出留着无害,避免破坏外部依赖);`SampleOutputStrip` 组件也保留(未删除)。
+
+### 选型理由
+
+- 12 段并列违反 Jobs 5-act 戏剧节奏:小老板每段都浅尝一口,没有一个段落让他「停下来」。改成 5 段后每段只做一件事,信息密度反而更高。
+- 一个具体场景 > 五条抽象痛点。痛点列表会让小老板感受到「你在教育我」;一个改前 vs 改后的真实样张让他直接看到「你能给我什么」。
+- 6 行业并列违反 focus 原则。删掉行业列表后,落地页对每个行业反而更有冲击——「我们做的是这种东西」比「我们覆盖 6 个行业」更有说服力。
+- FAQ 删除:小老板不读 FAQ。剩下的疑虑放进微信对话里解决,反而能筛出真客户。
+- 抽象 Trust 段删除:作品本身就是 trust,不需要再多 3 个抽象说法。
+
+### 卡点与解法
+
+- 现有 e2e 测试(`tests/home.spec.ts`)断言了 FAQ、样张占位多张、虚假案例/证言 ProofStrip、Before-After 整段标题等已删元素,重构后必然失败。解法:同步重写测试,覆盖新 5 段每段的关键可见元素 + 主 CTA 跳转 + 无横向溢出。
+- 担心删 `data/offer.ts` 字段会破坏其他依赖(如旧文档引用)。解法:不删任何字段、只在 `page.tsx` 内不再 import 即可,体积成本可忽略。
+- ProcessSteps 与 Pilot Rules 整合为一段时担心视觉过重。解法:用 `0.4fr_1fr` 两列布局把「前 5 个」名额做成左侧 chip、规则做成右侧卡片,卡片视觉分量保持原来 Pilot Rules 段相近。
+
+### 验证证据
+
+- `npm run lint`:通过(无警告)。
+- `npm run typecheck`:通过。
+- `npm run build`:通过,静态路由仍为 `/`、`/_not-found`、`/guides`、`/guides/placeholder`,无新增/丢失。
+- `page.tsx` 行数从 422 → 313(-108 行,-26%);`SectionShell` 实例数从 11 → 4(Hero 仍是单独 `<section>` 不走 `SectionShell`,合计 5 段)。
+- e2e 测试已同步重写;本地无 Playwright 浏览器权限未跑,留给 cc 在前台跑。
+
+### 占位清单
+
+- 微信号/二维码仍为占位(沿用上轮)。
+- 真实作品列表仍只用校园需求板 + 生态环境英语词汇 App。
+- 样张内容仍标「样张占位」,未替换为脱敏真实案例。
+- 顶栏 PrimaryCta 文案「申请一次免费诊断」未动(szh 拍板)。
