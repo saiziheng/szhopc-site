@@ -155,7 +155,7 @@ export const processSteps: ProcessStep[] = [
   {
     step: "02",
     title: "做一版样张",
-    time: "先产出可看版本",
+    time: "明天下午交给你",
     body: "把朋友圈、脚本、回复话术或轻页面先做成一版,让你能直接判断有没有用。"
   },
   {
@@ -174,7 +174,7 @@ export const pilotRules = {
     "允许把过程和效果脱敏后做成案例",
     "觉得有用,帮我转介绍 1 个朋友"
   ],
-  note: "不是卖课,也不是让你买软件。先把你现有的生意包装得更容易被看懂。"
+  note: "你的生意已经有产品和服务,缺的是表达和承接。我帮你做的就是这一段。"
 } as const;
 
 export const trustPoints: TrustPoint[] = [

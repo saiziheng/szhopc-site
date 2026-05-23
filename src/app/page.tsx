@@ -1,9 +1,10 @@
+import { FaqList } from "@/components/faq";
 import { ArrowIcon, CheckIcon, MessageIcon } from "@/components/icons";
 import { PhoneMockup } from "@/components/phone-mockup";
 import { ProcessSteps } from "@/components/process-steps";
 import { SectionHeading } from "@/components/section-heading";
 import { siteConfig, TAGLINE, wechat } from "@/config/site";
-import { beforeAfter, pilotRules, processSteps, sampleOutputs } from "@/data/offer";
+import { beforeAfter, faqs, pilotRules, processSteps, sampleOutputs } from "@/data/offer";
 import { works } from "@/data/works";
 import type { ReactNode } from "react";
 
@@ -34,12 +35,11 @@ function SecondaryCta({ href, children }: { href: string; children: ReactNode })
 
 function ProofStrip() {
   const items = [
-    { value: "2", label: "真实上线作品" },
-    { value: "100%", label: "可点开访问" }
+    { value: "2", label: "真实上线作品" }
   ];
 
   return (
-    <div className="grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)] sm:grid-cols-2">
+    <div className="grid gap-px overflow-hidden rounded-sm border border-[color:var(--line)] bg-[color:var(--line)]">
       {items.map((item) => (
         <div key={item.label} className="bg-[color:var(--surface)] px-4 py-4">
           <p className="font-serif text-3xl font-semibold text-[color:var(--accent)]">{item.value}</p>
@@ -83,7 +83,7 @@ function WeChatCard() {
           )}
           <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{wechat.note}</p>
           <p className="mt-4 text-sm leading-7 text-[color:var(--foreground)]">
-            加我微信,说一句你做什么生意、最近最想解决哪个获客问题,我先免费帮你看一版。
+            扫我微信,3 分钟决定要不要试。不合适我也不瞎说。
           </p>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function Home() {
               {TAGLINE}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-9 text-[color:var(--muted)]">
-              先免费帮你做一版能直接发的朋友圈、短视频脚本和客户回复话术。你拿去发、拿去回客户,判断到底有没有用。
+              先做一版你能直接发的。不是报告,是你这周末能用的朋友圈、脚本和回复话术。
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PrimaryCta />
@@ -216,7 +216,7 @@ export default function Home() {
           <SectionHeading
             label="3 步开始"
             title="试点期前 5 个免费,先做样张再判断。"
-            body="不卖课、不推软件。先 10 分钟诊断,做一版你能直接发的样张,你试用后我们一起微调。"
+            body="先 10 分钟诊断,做一版你能直接发的样张,你试用后我们一起微调。"
           />
           <div className="mt-10">
             <ProcessSteps steps={processSteps} />
@@ -253,7 +253,7 @@ export default function Home() {
         <div className="stagger-panel">
           <SectionHeading
             label="我能把东西做出来"
-            title="2 个真实上线作品,直接点开看。"
+            title="这两个产品现在有真实用户在用,你点一下就知道样子。"
             body="不写虚假证言、不编客户案例。先用真实作品证明能力——需求收集、页面实现、上线访问、持续迭代。"
           />
           <div className="mt-8 divide-y divide-[color:var(--line)] border-y border-[color:var(--line)]">
@@ -282,13 +282,27 @@ export default function Home() {
         </div>
       </SectionShell>
 
+      {/* FAQ — 收尾消除疑虑,接最后一步行动 */}
+      <SectionShell id="faq">
+        <div className="stagger-panel">
+          <SectionHeading
+            label="还在犹豫?"
+            title="6 个最常被问到的问题。"
+            body="想到的我先答一遍。剩下的你加微信直接问就行。"
+          />
+          <div className="mt-10">
+            <FaqList items={faqs} />
+          </div>
+        </div>
+      </SectionShell>
+
       {/* Act 5 · ONE ACTION — 加微信,聊 10 分钟 */}
       <SectionShell id="contact">
         <div className="stagger-panel">
           <SectionHeading
             label="开始一次免费诊断"
             title="加我微信,聊 10 分钟。"
-            body="说一句你做什么生意、最近最想解决的获客问题,我先免费帮你看一版。"
+            body="说一句你做什么生意、最近最想解决的获客问题。能做我直接做,不合适我也不瞎说。"
             align="center"
           />
           <div className="mx-auto mt-10 max-w-3xl">
@@ -305,7 +319,7 @@ export default function Home() {
           <p>
             {siteConfig.domain} · {PILOT_NAME}
           </p>
-          <p>用 AI 帮小生意把获客这件事做顺。</p>
+          <p>不讲大道理,先试一个月。有用转介绍,没用我赔时间。</p>
         </div>
       </footer>
     </main>
