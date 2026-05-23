@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" fill="none">
+  <rect width="900" height="520" fill="#F8F7F2"/>
+
+  <!-- chat window frame -->
+  <rect x="58" y="54" width="784" height="412" rx="24" fill="#FFFFFF" stroke="#DEDAD0"/>
+
+  <!-- header bar -->
+  <rect x="58" y="54" width="784" height="64" rx="24" fill="#EFE8D8"/>
+  <rect x="58" y="94" width="784" height="24" fill="#EFE8D8"/>
+  <line x1="58" y1="118" x2="842" y2="118" stroke="#DEDAD0"/>
+
+  <!-- avatar circle -->
+  <circle cx="100" cy="86" r="18" fill="#9C5B20"/>
+  <text x="100" y="91" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="14" font-weight="700" fill="#F8F7F2" text-anchor="middle">AI</text>
+
+  <!-- header title -->
+  <text x="132" y="82" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="15" font-weight="600" fill="#111827">AI 客服 · X 公司</text>
+  <text x="132" y="100" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="11" fill="#6B7280">在线 · 平均 2 秒响应</text>
+
+  <!-- header right window dots -->
+  <circle cx="788" cy="86" r="4" fill="#DEDAD0"/>
+  <circle cx="804" cy="86" r="4" fill="#DEDAD0"/>
+  <circle cx="820" cy="86" r="4" fill="#DEDAD0"/>
+
+  <!-- customer bubble 1 (right aligned, gray) -->
+  <rect x="528" y="148" width="284" height="60" rx="16" fill="#EFE8D8"/>
+  <text x="552" y="178" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="14" fill="#111827">请问你们家有什么新品?</text>
+  <text x="552" y="196" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="10" fill="#9AA0A9">客户</text>
+
+  <!-- AI bubble 1 (left aligned, white + gold border) -->
+  <rect x="88" y="226" width="372" height="86" rx="16" fill="#FFFFFF" stroke="#9C5B20" stroke-width="1.5"/>
+  <text x="112" y="256" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="14" fill="#111827">我们最近上了 3 款新品:</text>
+  <circle cx="120" cy="278" r="3" fill="#9C5B20"/>
+  <rect x="132" y="274" width="184" height="9" rx="4" fill="#6B7280" opacity="0.55"/>
+  <circle cx="120" cy="296" r="3" fill="#9C5B20"/>
+  <rect x="132" y="292" width="220" height="9" rx="4" fill="#6B7280" opacity="0.55"/>
+
+  <!-- customer bubble 2 (right aligned, gray) -->
+  <rect x="620" y="330" width="192" height="48" rx="16" fill="#EFE8D8"/>
+  <text x="644" y="360" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="14" fill="#111827">多少钱?</text>
+
+  <!-- AI bubble 2 (left aligned, white + gold border) -->
+  <rect x="88" y="394" width="328" height="50" rx="16" fill="#FFFFFF" stroke="#9C5B20" stroke-width="1.5"/>
+  <text x="112" y="424" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="14" fill="#111827">价格如下:¥199 起,详情我发给您</text>
+
+  <!-- AI auto-reply badge (bottom right) -->
+  <rect x="700" y="488" width="112" height="22" rx="11" fill="#9C5B20"/>
+  <circle cx="713" cy="499" r="3" fill="#F8F7F2"/>
+  <text x="724" y="503" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif" font-size="11" font-weight="600" fill="#F8F7F2">AI 自动回复</text>
+</svg>
