@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # vercel
 .vercel
+
+# auto-generated next types
+next-env.d.ts
