@@ -1,34 +1,85 @@
 import { expect, test } from "@playwright/test";
 
-test("mobile homepage exposes hero, portfolio links, and campus external target", async ({
-  page,
-  context
-}) => {
+test.beforeEach(async ({ page }) => {
   await page.goto("/");
+});
 
+test("Hero 主标可见", async ({ page }) => {
   await expect(
     page.getByRole("heading", {
-      name: "我是 szh,正在用 AI 协作完成真实项目。"
+      name: "用 AI 接住企业真实的麻烦事。"
     })
   ).toBeVisible();
-  await expect(page.getByText("一个大学生的 AI 协作交付现场")).toBeVisible();
+});
 
-  const portfolioCta = page.getByRole("link", { name: /看作品集/ }).first();
-  await expect(portfolioCta).toHaveAttribute("href", "#works");
-  await portfolioCta.click();
-  await expect(page).toHaveURL(/#works$/);
+test("Hero 副标可见", async ({ page }) => {
+  await expect(page.getByText("客服、文案、工具、流程")).toBeVisible();
+});
 
-  const campusCard = page.getByRole("link", { name: /校园需求板/ });
-  await expect(campusCard).toHaveAttribute("href", "https://xuqiu.17szh.cn");
+test("Nav 4 项可点击", async ({ page }) => {
+  const navItems = ["能做什么", "公益项目", "About", "联系"];
+  for (const name of navItems) {
+    await expect(
+      page.getByRole("link", { name, exact: true }).first()
+    ).toBeVisible();
+  }
+});
 
-  const popupPromise = context.waitForEvent("page");
-  await campusCard.click();
-  const popup = await popupPromise;
-  await expect(popup).toHaveURL(/https:\/\/xuqiu\.17szh\.cn\/?/);
-  await popup.close();
+test("三栏服务可见", async ({ page }) => {
+  await expect(
+    page.getByRole("heading", { name: "重复的活让机器干" })
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "缺的小工具我帮你做" })
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "内容素材一次给齐" })
+  ).toBeVisible();
+});
 
+test("公益项目段 CTA 指向 school.szhopc.cn", async ({ page }) => {
+  const cta = page.getByRole("link", { name: /看公益项目/ }).first();
+  await expect(cta).toBeVisible();
+  await expect(cta).toHaveAttribute("href", /school\.szhopc\.cn/);
+});
+
+test("三个企业子域链接齐全", async ({ page }) => {
+  const hrefs = ["/agents", "/vibe-coding", "/ai-content"];
+  for (const href of hrefs) {
+    await expect(page.locator(`a[href="${href}"]`).first()).toBeVisible();
+  }
+});
+
+test("微信二维码可见", async ({ page }) => {
+  await expect(
+    page.locator('img[src="/wechat-qr.svg"]').first()
+  ).toBeVisible();
+});
+
+test("移动端首屏无横向溢出", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
   const hasHorizontalOverflow = await page.evaluate(
-    () => document.documentElement.scrollWidth > document.documentElement.clientWidth
+    () =>
+      document.documentElement.scrollWidth >
+      document.documentElement.clientWidth
   );
   expect(hasHorizontalOverflow).toBe(false);
+});
+
+test("作品集分三段可见", async ({ page }) => {
+  await expect(
+    page.getByRole("heading", { name: /企业案例/ })
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /公益项目/ }).first()
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /学习工具/ })
+  ).toBeVisible();
+});
+
+test("#updates 段已删除", async ({ page }) => {
+  await expect(page.getByText("公开进展")).toHaveCount(0);
+  await expect(page.getByText("Build in public")).toHaveCount(0);
 });
