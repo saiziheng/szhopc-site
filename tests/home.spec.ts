@@ -16,7 +16,9 @@ test("Hero 副标可见", async ({ page }) => {
   await expect(page.getByText("客服、文案、工具、流程")).toBeVisible();
 });
 
-test("Nav 4 项可点击", async ({ page }) => {
+test("Nav 4 项存在(桌面端可见)", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/");
   const navItems = ["能做什么", "公益项目", "About", "联系"];
   for (const name of navItems) {
     await expect(
@@ -38,15 +40,20 @@ test("三栏服务可见", async ({ page }) => {
 });
 
 test("公益项目段 CTA 指向 school.szhopc.cn", async ({ page }) => {
-  const cta = page.getByRole("link", { name: /看公益项目/ }).first();
+  // Hero CTA 也叫"看公益项目"(锚点 #causes),用 href 过滤只匹配真外链
+  const cta = page
+    .locator('a[href*="school.szhopc.cn"]')
+    .first();
   await expect(cta).toBeVisible();
-  await expect(cta).toHaveAttribute("href", /school\.szhopc\.cn/);
 });
 
 test("三个企业子域链接齐全", async ({ page }) => {
+  // next.config trailingSlash: true → 实际渲染为 /agents/,用前缀匹配
   const hrefs = ["/agents", "/vibe-coding", "/ai-content"];
   for (const href of hrefs) {
-    await expect(page.locator(`a[href="${href}"]`).first()).toBeVisible();
+    await expect(
+      page.locator(`a[href^="${href}"]`).first()
+    ).toBeVisible();
   }
 });
 
