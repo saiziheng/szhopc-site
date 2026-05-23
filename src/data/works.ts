@@ -13,12 +13,12 @@ export type Work = {
 export const works: Work[] = [
   {
     title: "智能客服智能体",
-    summary: "给 X 公司做的客服自动答疑系统。",
+    summary: "正在接入第一家企业客户(2026-05-24 启动)。",
     href: null,
     preview: "/case-customer-service.svg",
     category: "enterprise",
     featured: true,
-    stats: "接入后处理 70% 重复咨询,2-3 天交付。"
+    stats: "启动后会用客户脱敏对话与真实数据公开案例。"
   },
   {
     title: "校园需求板",

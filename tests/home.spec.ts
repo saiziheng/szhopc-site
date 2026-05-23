@@ -19,7 +19,7 @@ test("Hero 副标可见", async ({ page }) => {
 test("Nav 4 项存在(桌面端可见)", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
-  const navItems = ["能做什么", "公益项目", "About", "联系"];
+  const navItems = ["能做什么", "公益项目", "关于", "联系"];
   for (const name of navItems) {
     await expect(
       page.getByRole("link", { name, exact: true }).first()
