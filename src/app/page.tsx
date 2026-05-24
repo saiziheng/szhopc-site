@@ -49,6 +49,7 @@ export default function Home() {
   const causeWorks = works.filter((work) => work.category === "cause");
   const learningWorks = works.filter((work) => work.category === "learning");
   const featuredEnterprise = enterpriseWorks.find((work) => work.featured);
+  const otherEnterprise = enterpriseWorks.filter((work) => work !== featuredEnterprise);
 
   return (
     <main>
@@ -238,7 +239,7 @@ export default function Home() {
           {/* 企业案例 — 大卡(最后,软背书) */}
           {featuredEnterprise ? (
             <div className="mt-12">
-              <h3 className="text-base font-semibold text-[#1B4332]">企业案例</h3>
+              <h3 className="text-base font-semibold text-[#1B4332]">企业服务 · AI Agent 系列</h3>
               <article className="mt-5 overflow-hidden rounded-md border border-[#e4e4e7] bg-white shadow-sm">
                 {featuredEnterprise.preview ? (
                   <Image
@@ -281,6 +282,39 @@ export default function Home() {
                   </div>
                 </div>
               </article>
+
+              {otherEnterprise.length > 0 ? (
+                <ul className="mt-4 divide-y divide-[#e4e4e7] border-y border-[#e4e4e7]">
+                  {otherEnterprise.map((work) => (
+                    <li key={work.title} className="py-4">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                        <div>
+                          <span className="text-base font-semibold text-[#18181b]">
+                            {work.title}
+                          </span>
+                          <span className="ml-3 text-sm text-[#71717a]">{work.summary}</span>
+                        </div>
+                        {work.href ? (
+                          <a
+                            href={work.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-sm font-semibold text-[#1B4332] hover:underline"
+                          >
+                            {(work.href ?? "").replace(/^https?:\/\//, "")}
+                            <ExternalArrow />
+                          </a>
+                        ) : (
+                          <span className="text-sm text-[#a1a1aa]">(本地交付中)</span>
+                        )}
+                      </div>
+                      {work.stats ? (
+                        <p className="mt-1 text-xs text-[#71717a]">{work.stats}</p>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           ) : null}
         </div>

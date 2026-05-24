@@ -12,13 +12,20 @@ export type Work = {
 
 export const works: Work[] = [
   {
-    title: "智能客服智能体",
-    summary: "正在接入第一家企业客户(2026-05-24 启动)。",
+    title: "AI 客服 Agent",
+    summary: "南京本地小老板的售前接待。上传 FAQ 文档,7×24 引用源回答。",
     href: null,
     preview: "/case-customer-service.svg",
     category: "enterprise",
     featured: true,
-    stats: "启动后会用客户脱敏对话与真实数据公开案例。"
+    stats: "2026-05-24 立项,Codex 本地交付中。即将上线 kefu.szhopc.cn。"
+  },
+  {
+    title: "AI 客户跟进 Agent",
+    summary: "把微信聊天记录变成客户档案,提醒该跟进谁、生成话术。",
+    href: null,
+    category: "enterprise",
+    stats: "2026-05-24 立项。与客服 Agent 互补:接进来 + 留住人。即将上线 client.szhopc.cn。"
   },
   {
     title: "校园需求板",
