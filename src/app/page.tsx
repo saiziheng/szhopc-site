@@ -53,76 +53,66 @@ export default function Home() {
   return (
     <main>
       {/* Hero */}
-      <section className="hero-shell relative isolate min-h-[92svh] overflow-hidden px-5 pb-12 pt-5 text-white sm:px-8 lg:px-10">
-        <Image
-          src="/opc-workbench.svg"
-          alt=""
-          aria-hidden="true"
-          fill
-          priority
-          unoptimized
-          sizes="100vw"
-          className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,12,18,0.93)_0%,rgba(9,12,18,0.74)_47%,rgba(9,12,18,0.42)_100%)]" />
-
-        <header className="mx-auto flex max-w-6xl items-center justify-between gap-5">
-          <a href="#" className="text-base font-semibold tracking-normal text-white">
+      <section className="relative isolate overflow-hidden bg-white px-5 pb-6 pt-5 sm:px-8 sm:pb-10 lg:px-10">
+        <header className="mx-auto flex max-w-6xl items-center justify-between gap-5 pt-2">
+          <a href="#" className="text-base font-semibold tracking-normal text-[#18181b]">
             {siteConfig.name}
           </a>
-          <nav aria-label="主导航" className="hidden items-center gap-7 text-sm text-white/74 md:flex">
+          <nav aria-label="主导航" className="hidden items-center gap-7 text-sm text-[#71717a] md:flex">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="transition hover:text-white">
+              <a key={item.href} href={item.href} className="transition hover:text-[#18181b]">
                 {item.label}
               </a>
             ))}
           </nav>
           <a
             href="#contact"
-            className="rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white hover:text-[#111827]"
+            className="rounded-md border border-[#e4e4e7] bg-white px-4 py-2 text-sm font-medium text-[#18181b] transition hover:border-[#18181b]"
           >
             联系
           </a>
         </header>
 
-        <div className="mx-auto flex min-h-[calc(92svh-76px)] max-w-6xl items-center">
-          <div className="max-w-3xl pb-10 pt-16">
-            <h1 className="text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-              用 AI 接住企业真实的麻烦事。
-            </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-white/84 sm:text-2xl">
-              客服、文案、工具、流程——交付的是你能直接用的成品。
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
-              >
-                看能做什么
-                <ArrowIcon />
-              </a>
-              <a
-                href="#causes"
-                className="inline-flex items-center justify-center rounded-md border border-white/22 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/55 hover:bg-white/8"
-              >
-                看公益项目
-              </a>
-            </div>
+        <div className="mx-auto max-w-4xl pb-6 pt-12 sm:pb-10 sm:pt-16 lg:pt-20">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#e4e4e7] bg-[#fafaf9] px-3 py-1 text-xs text-[#3f3f46]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1B4332]" />
+            南京 · AI 协作交付现场
+          </div>
+          <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-[#18181b] sm:text-5xl lg:text-6xl">
+            用 AI 接住<br />企业<span className="text-[#1B4332]">真实的</span>麻烦事。
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#3f3f46] sm:text-xl">
+            客服、文案、工具、流程——交付的是你能直接用的成品。
+          </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#services"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1B4332] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#2d6a4f]"
+            >
+              看能做什么
+              <ArrowIcon />
+            </a>
+            <a
+              href="#causes"
+              className="inline-flex items-center justify-center rounded-md border border-[#e4e4e7] bg-white px-5 py-3 text-sm font-semibold text-[#18181b] transition hover:border-[#1B4332] hover:text-[#1B4332]"
+            >
+              看公益项目
+            </a>
           </div>
         </div>
       </section>
 
       {/* #services 能做什么 */}
-      <section id="services" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="services" className="border-t border-[#f4f4f5] bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Services</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+              <p className="text-sm font-semibold text-[#1B4332]">Services</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#18181b] sm:text-4xl">
                 能做什么
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
+            <p className="max-w-2xl text-base leading-7 text-[#71717a]">
               三类常见痛点——重复的活、缺的工具、缺的内容。点进去看每一类怎么开始。
             </p>
           </div>
@@ -132,20 +122,20 @@ export default function Home() {
               <Link
                 key={service.slug}
                 href={service.href}
-                className="group flex flex-col rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-6 transition hover:-translate-y-1 hover:border-[#c9a45a] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
+                className="group flex flex-col rounded-md border border-[#e4e4e7] bg-[#fafaf9] p-6 transition hover:-translate-y-1 hover:border-[#1B4332] hover:shadow-[0_18px_52px_rgba(30,41,59,0.10)]"
               >
-                <h3 className="text-xl font-semibold text-[#111827]">{service.title}</h3>
+                <h3 className="text-xl font-semibold text-[#18181b]">{service.title}</h3>
                 <ul className="mt-5 space-y-4">
                   {service.items.map((item) => (
-                    <li key={item.text} className="text-sm leading-6 text-[#263142]">
+                    <li key={item.text} className="text-sm leading-6 text-[#3f3f46]">
                       <p>{item.text}</p>
                       {item.tail ? (
-                        <p className="mt-1 text-sm text-[#8f4f17]">→ {item.tail}</p>
+                        <p className="mt-1 text-sm text-[#1B4332]">→ {item.tail}</p>
                       ) : null}
                     </li>
                   ))}
                 </ul>
-                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-[#8f4f17]">
+                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-[#1B4332]">
                   了解详情
                   <ArrowIcon />
                 </span>
@@ -156,16 +146,16 @@ export default function Home() {
       </section>
 
       {/* #works 作品(分类) */}
-      <section id="works" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="works" className="border-t border-[#f4f4f5] bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Portfolio</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+              <p className="text-sm font-semibold text-[#1B4332]">Portfolio</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#18181b] sm:text-4xl">
                 作品
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
+            <p className="max-w-2xl text-base leading-7 text-[#71717a]">
               先看已经在线的真实作品,最后是正在接入的企业案例。
             </p>
           </div>
@@ -173,8 +163,8 @@ export default function Home() {
           {/* 公益项目 — 文字 list(先建立信任) */}
           {causeWorks.length > 0 ? (
             <div className="mt-12">
-              <h3 className="text-base font-semibold text-[#9c5b20]">公益项目</h3>
-              <ul className="mt-5 divide-y divide-[#dedbd1] border-y border-[#dedbd1]">
+              <h3 className="text-base font-semibold text-[#1B4332]">公益项目</h3>
+              <ul className="mt-5 divide-y divide-[#e4e4e7] border-y border-[#e4e4e7]">
                 {causeWorks.map((work) => (
                   <li key={work.title} className="py-4">
                     {work.href ? (
@@ -185,20 +175,20 @@ export default function Home() {
                         className="group flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                       >
                         <div>
-                          <span className="text-base font-semibold text-[#111827] group-hover:text-[#8f4f17]">
+                          <span className="text-base font-semibold text-[#18181b] group-hover:text-[#1B4332]">
                             {work.title}
                           </span>
-                          <span className="ml-3 text-sm text-[#5c6472]">{work.summary}</span>
+                          <span className="ml-3 text-sm text-[#71717a]">{work.summary}</span>
                         </div>
-                        <span className="inline-flex items-center gap-1 text-sm text-[#8f4f17]">
+                        <span className="inline-flex items-center gap-1 text-sm text-[#1B4332]">
                           {(work.href ?? "").replace(/^https?:\/\//, "")}
                           <ExternalArrow />
                         </span>
                       </a>
                     ) : (
                       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
-                        <span className="text-base font-semibold text-[#111827]">{work.title}</span>
-                        <span className="text-sm text-[#5c6472]">{work.summary}</span>
+                        <span className="text-base font-semibold text-[#18181b]">{work.title}</span>
+                        <span className="text-sm text-[#71717a]">{work.summary}</span>
                       </div>
                     )}
                   </li>
@@ -210,8 +200,8 @@ export default function Home() {
           {/* 学习工具 — 文字 list */}
           {learningWorks.length > 0 ? (
             <div className="mt-12">
-              <h3 className="text-base font-semibold text-[#9c5b20]">学习工具</h3>
-              <ul className="mt-5 divide-y divide-[#dedbd1] border-y border-[#dedbd1]">
+              <h3 className="text-base font-semibold text-[#1B4332]">学习工具</h3>
+              <ul className="mt-5 divide-y divide-[#e4e4e7] border-y border-[#e4e4e7]">
                 {learningWorks.map((work) => (
                   <li key={work.title} className="py-4">
                     {work.href ? (
@@ -222,20 +212,20 @@ export default function Home() {
                         className="group flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                       >
                         <div>
-                          <span className="text-base font-semibold text-[#111827] group-hover:text-[#8f4f17]">
+                          <span className="text-base font-semibold text-[#18181b] group-hover:text-[#1B4332]">
                             {work.title}
                           </span>
-                          <span className="ml-3 text-sm text-[#5c6472]">{work.summary}</span>
+                          <span className="ml-3 text-sm text-[#71717a]">{work.summary}</span>
                         </div>
-                        <span className="inline-flex items-center gap-1 text-sm text-[#8f4f17]">
+                        <span className="inline-flex items-center gap-1 text-sm text-[#1B4332]">
                           {(work.href ?? "").replace(/^https?:\/\//, "")}
                           <ExternalArrow />
                         </span>
                       </a>
                     ) : (
                       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
-                        <span className="text-base font-semibold text-[#111827]">{work.title}</span>
-                        <span className="text-sm text-[#5c6472]">{work.summary}</span>
+                        <span className="text-base font-semibold text-[#18181b]">{work.title}</span>
+                        <span className="text-sm text-[#71717a]">{work.summary}</span>
                       </div>
                     )}
                   </li>
@@ -247,8 +237,8 @@ export default function Home() {
           {/* 企业案例 — 大卡(最后,软背书) */}
           {featuredEnterprise ? (
             <div className="mt-12">
-              <h3 className="text-base font-semibold text-[#9c5b20]">企业案例</h3>
-              <article className="mt-5 overflow-hidden rounded-md border border-[#dedbd1] bg-white shadow-sm">
+              <h3 className="text-base font-semibold text-[#1B4332]">企业案例</h3>
+              <article className="mt-5 overflow-hidden rounded-md border border-[#e4e4e7] bg-white shadow-sm">
                 {featuredEnterprise.preview ? (
                   <Image
                     src={featuredEnterprise.preview}
@@ -260,14 +250,14 @@ export default function Home() {
                   />
                 ) : null}
                 <div className="p-6 sm:p-8">
-                  <h4 className="text-2xl font-semibold text-[#111827] sm:text-3xl">
+                  <h4 className="text-2xl font-semibold text-[#18181b] sm:text-3xl">
                     {featuredEnterprise.title}
                   </h4>
-                  <p className="mt-4 text-base leading-7 text-[#263142]">
+                  <p className="mt-4 text-base leading-7 text-[#3f3f46]">
                     {featuredEnterprise.summary}
                   </p>
                   {featuredEnterprise.stats ? (
-                    <p className="mt-3 text-sm leading-6 text-[#5c6472]">
+                    <p className="mt-3 text-sm leading-6 text-[#71717a]">
                       {featuredEnterprise.stats}
                     </p>
                   ) : null}
@@ -277,13 +267,13 @@ export default function Home() {
                         href={featuredEnterprise.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#8f4f17] hover:underline"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B4332] hover:underline"
                       >
                         看详情
                         <ArrowIcon />
                       </a>
                     ) : (
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-[#a8956b]">
+                      <span className="inline-flex items-center gap-2 text-sm font-medium text-[#a1a1aa]">
                         (启动后会公开)
                       </span>
                     )}
@@ -296,26 +286,26 @@ export default function Home() {
       </section>
 
       {/* #causes 公益项目 */}
-      <section id="causes" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="causes" className="border-t border-[#f4f4f5] bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Causes</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+              <p className="text-sm font-semibold text-[#1B4332]">Causes</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#18181b] sm:text-4xl">
                 公益项目
               </h2>
             </div>
           </div>
 
-          <div className="mt-10 rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-8 sm:p-10">
-            <p className="text-xl leading-8 text-[#111827] sm:text-2xl">{causes.headline}</p>
-            <p className="mt-5 text-base leading-7 text-[#5c6472]">{causes.hookLine1}</p>
+          <div className="mt-10 rounded-md border border-[#e4e4e7] bg-[#fafaf9] p-8 sm:p-10">
+            <p className="text-xl leading-8 text-[#18181b] sm:text-2xl">{causes.headline}</p>
+            <p className="mt-5 text-base leading-7 text-[#71717a]">{causes.hookLine1}</p>
             <div className="mt-8">
               <a
                 href={causes.ctaHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#f7c95f] px-5 py-3 text-sm font-semibold text-[#17120a] transition hover:bg-[#ffd97a]"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#18181b] px-5 py-3 text-sm font-semibold text-[#ffffff] transition hover:bg-[#27272a]"
               >
                 {causes.ctaLabel}
                 <ArrowIcon />
@@ -326,25 +316,25 @@ export default function Home() {
       </section>
 
       {/* #about */}
-      <section id="about" className="bg-[#f8f7f2] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="about" className="border-t border-[#f4f4f5] bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">About</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+              <p className="text-sm font-semibold text-[#1B4332]">About</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#18181b] sm:text-4xl">
                 {about.headline}
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">{about.intro}</p>
+            <p className="max-w-2xl text-base leading-7 text-[#71717a]">{about.intro}</p>
           </div>
 
           <div className="mt-10 grid gap-3 md:grid-cols-2">
             {about.pillars.map((pillar) => (
               <div
                 key={pillar}
-                className="rounded-md border border-[#dedbd1] bg-white p-5"
+                className="rounded-md border border-[#e4e4e7] bg-white p-5"
               >
-                <p className="text-base leading-7 text-[#263142]">▸ {pillar}</p>
+                <p className="text-base leading-7 text-[#3f3f46]">▸ {pillar}</p>
               </div>
             ))}
           </div>
@@ -353,7 +343,7 @@ export default function Home() {
             {about.ctas.map((cta) => {
               const isExternal = cta.href.startsWith("http");
               const baseClass =
-                "inline-flex items-center justify-center gap-2 rounded-md border border-[#dedbd1] bg-white px-5 py-3 text-sm font-semibold text-[#111827] transition hover:border-[#c9a45a] hover:text-[#8f4f17]";
+                "inline-flex items-center justify-center gap-2 rounded-md border border-[#e4e4e7] bg-white px-5 py-3 text-sm font-semibold text-[#18181b] transition hover:border-[#1B4332] hover:text-[#1B4332]";
 
               if (isExternal) {
                 return (
@@ -380,23 +370,23 @@ export default function Home() {
       </section>
 
       {/* #contact */}
-      <section id="contact" className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="contact" className="border-t border-[#f4f4f5] bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="section-grid">
             <div>
-              <p className="text-sm font-semibold text-[#9c5b20]">Contact</p>
-              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#111827] sm:text-4xl">
+              <p className="text-sm font-semibold text-[#1B4332]">Contact</p>
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#18181b] sm:text-4xl">
                 联系
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#5c6472]">
+            <p className="max-w-2xl text-base leading-7 text-[#71717a]">
               企业客户走微信。GitHub 看作品,邮箱备用。
             </p>
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[0.55fr_0.45fr] lg:items-start">
-            <div className="rounded-md border border-[#dedbd1] bg-[#f8f7f2] p-6 sm:p-8">
-              <p className="text-sm font-semibold text-[#8f4f17]">微信</p>
+            <div className="rounded-md border border-[#e4e4e7] bg-[#fafaf9] p-6 sm:p-8">
+              <p className="text-sm font-semibold text-[#1B4332]">微信</p>
               <div className="mt-5 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
                 <Image
                   src={contact.wechat.qrcode}
@@ -404,30 +394,30 @@ export default function Home() {
                   width={180}
                   height={180}
                   unoptimized
-                  className="h-44 w-44 rounded-md border border-[#dedbd1] bg-white"
+                  className="h-44 w-44 rounded-md border border-[#e4e4e7] bg-white"
                 />
-                <p className="text-base leading-7 text-[#263142]">{contact.wechat.note}</p>
+                <p className="text-base leading-7 text-[#3f3f46]">{contact.wechat.note}</p>
               </div>
             </div>
 
             <ul className="grid gap-3">
-              <li className="rounded-md border border-[#dedbd1] bg-white p-5">
+              <li className="rounded-md border border-[#e4e4e7] bg-white p-5">
                 <a
                   href={contact.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-baseline justify-between gap-4 text-base font-semibold text-[#111827] hover:text-[#8f4f17]"
+                  className="flex items-baseline justify-between gap-4 text-base font-semibold text-[#18181b] hover:text-[#1B4332]"
                 >
                   <span>GitHub</span>
-                  <span className="text-sm font-normal text-[#5c6472]">
+                  <span className="text-sm font-normal text-[#71717a]">
                     {contact.github.replace(/^https?:\/\//, "")}
                   </span>
                 </a>
               </li>
-              <li className="rounded-md border border-[#dedbd1] bg-white p-5">
+              <li className="rounded-md border border-[#e4e4e7] bg-white p-5">
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="text-base font-semibold text-[#111827]">邮箱</span>
-                  <span className="text-sm text-[#5c6472]">{contact.email}</span>
+                  <span className="text-base font-semibold text-[#18181b]">邮箱</span>
+                  <span className="text-sm text-[#71717a]">{contact.email}</span>
                 </div>
               </li>
             </ul>

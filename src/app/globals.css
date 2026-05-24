@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f7f2;
-  --foreground: #111827;
+  --background: #fafaf9;
+  --foreground: #18181b;
+  --accent: #1B4332;
 }
 
 @theme inline {
@@ -18,7 +19,6 @@
 
 html {
   min-width: 320px;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -39,12 +39,12 @@ svg {
 }
 
 ::selection {
-  background: #f7c95f;
-  color: #111827;
+  background: #1B4332;
+  color: #ffffff;
 }
 
 .hero-shell {
-  background: #090c12;
+  background: #0a0a0a;
 }
 
 .section-grid {
