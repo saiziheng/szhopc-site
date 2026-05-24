@@ -58,18 +58,19 @@ export default function Home() {
           <a href="#" className="text-base font-semibold tracking-normal text-[#18181b]">
             {siteConfig.name}
           </a>
-          <nav aria-label="主导航" className="hidden items-center gap-7 text-sm text-[#71717a] md:flex">
+          <nav aria-label="主导航" className="hidden items-center gap-7 text-sm font-medium text-[#3f3f46] md:flex">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="transition hover:text-[#18181b]">
+              <a key={item.href} href={item.href} className="transition hover:text-[#1B4332]">
                 {item.label}
               </a>
             ))}
           </nav>
           <a
             href="#contact"
-            className="rounded-md border border-[#e4e4e7] bg-white px-4 py-2 text-sm font-medium text-[#18181b] transition hover:border-[#18181b]"
+            className="inline-flex items-center gap-1.5 rounded-md border border-[#1B4332] bg-white px-4 py-2 text-sm font-semibold text-[#1B4332] transition hover:bg-[#1B4332] hover:text-white"
           >
             联系
+            <ArrowIcon />
           </a>
         </header>
 
@@ -343,7 +344,7 @@ export default function Home() {
             {about.ctas.map((cta) => {
               const isExternal = cta.href.startsWith("http");
               const baseClass =
-                "inline-flex items-center justify-center gap-2 rounded-md border border-[#e4e4e7] bg-white px-5 py-3 text-sm font-semibold text-[#18181b] transition hover:border-[#1B4332] hover:text-[#1B4332]";
+                "inline-flex items-center justify-center gap-2 rounded-md border border-[#1B4332] bg-white px-5 py-3 text-sm font-semibold text-[#1B4332] transition hover:bg-[#1B4332] hover:text-white";
 
               if (isExternal) {
                 return (
