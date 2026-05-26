@@ -14,7 +14,7 @@ export default function AgentsPage() {
           href="/"
           className="text-sm font-semibold text-[#1B4332] hover:underline"
         >
-          ← 回 szhopc.cn 主页
+          ← 回 business.szhopc.cn 主页
         </Link>
 
         <header className="mt-8">

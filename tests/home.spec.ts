@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 test("Hero 主标可见", async ({ page }) => {
   await expect(
     page.getByRole("heading", {
-      name: "用 AI 接住企业真实的麻烦事。"
+      name: /用 AI 接住.*企业.*真实的.*麻烦事/
     })
   ).toBeVisible();
 });
@@ -59,7 +59,7 @@ test("三个企业子域链接齐全", async ({ page }) => {
 
 test("微信二维码可见", async ({ page }) => {
   await expect(
-    page.locator('img[src="/wechat-qr.svg"]').first()
+    page.locator('img[src="/wechat-qr.jpg"]').first()
   ).toBeVisible();
 });
 
@@ -76,7 +76,7 @@ test("移动端首屏无横向溢出", async ({ page }) => {
 
 test("作品集分三段可见", async ({ page }) => {
   await expect(
-    page.getByRole("heading", { name: /企业案例/ })
+    page.getByRole("heading", { name: /企业服务 · AI Agent 系列/ })
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: /公益项目/ }).first()

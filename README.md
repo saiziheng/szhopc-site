@@ -1,6 +1,6 @@
 # szhopc-site
 
-`szhopc.cn` personal IP hub for szh: portfolio, build in public updates, OPC practice identity, and trusted contact entry.
+`business.szhopc.cn` personal IP hub for szh: portfolio, build in public updates, OPC practice identity, and trusted contact entry.
 
 ## Stack
 
@@ -21,6 +21,6 @@ npm run test:e2e
 
 ## Production
 
-- Domain: `https://szhopc.cn`
+- Domain: `https://business.szhopc.cn`
 - GitHub: `https://github.com/saiziheng/szhopc-site`
 - Vercel scope: `szh1`

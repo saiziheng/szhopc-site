@@ -2,7 +2,7 @@
 
 ## 关键事实
 
-- 项目名:`szhopc-site`;生产主域:`szhopc.cn`;用途是 szh 的个人 IP / 作品集 / build in public hub,信任向,不承接商单落地页。
+- 项目名:`szhopc-site`;生产主域:`business.szhopc.cn`;用途是 szh 的个人 IP / 作品集 / build in public hub,信任向,不承接商单落地页。
 - 技术栈定为 Next.js App Router + TypeScript + Tailwind CSS,使用 `output: "export"` 做纯静态 SSG。
 - 字体使用系统字体栈,不使用 `next/font/google`,避免受限网络下构建失败。
 - 页面数据拆到 `src/config/site.ts`、`src/data/works.ts`、`src/data/updates.ts`;首版只包含 Hero、作品集、Build in public、About、联系/关注。
@@ -43,7 +43,12 @@
 - 选题角度:我给自己搭了一个个人 IP hub,它不是简历,而是 AI 协作交付现场。
 - 3 秒 Hook:一个大学生的网站,最重要的不是好看,而是让真实项目被看见。
 - 视频主线:从域名分工、作品卡片、build in public 时间线到工程黑箱,展示一次 AI 协作搭站全过程。
-- 结尾 CTA:持续更新 `szhopc.cn`,把每个小作品都变成可验证的信任资产。
+- 结尾 CTA:持续更新 `business.szhopc.cn`,把每个小作品都变成可验证的信任资产。
+
+## 2026-05-27 域名迁移
+
+- 按 szh 指令,本站 canonical / 生产主域从 `szhopc.cn` 迁到 `business.szhopc.cn`。
+- `szhopc.cn` / `www.szhopc.cn` 从 Vercel 项目域名中解绑,根域暂不放 szh 站点内容。
 
 ## 黑匣子自评
 

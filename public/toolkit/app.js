@@ -36,13 +36,13 @@ const honestFooter = `
 <footer><div class="wrap">
 <p><b>关于这个工具箱:</b>这是 szh(一个用 AI 协作做真实交付的在校学生 / 一人公司)做的演示。生成的内容是基于常见小生意场景的<strong>结构化样张和建议</strong>,需要按你的真实生意调整,不是承诺。</p>
 <p>这里<b>不承诺</b>具体盈利、不承诺具体降本金额、不替你运营账号、不碰你的账号密码。所有内容只在你这台设备上本地生成,不上传、不保存。</p>
-<p>了解更多真实作品 → <a href="https://szhopc.cn" target="_blank" rel="noopener">szhopc.cn</a></p>
+<p>了解更多真实作品 → <a href="https://business.szhopc.cn" target="_blank" rel="noopener">business.szhopc.cn</a></p>
 </div></footer>`;
 
 const ctaBox = `
 <div class="cta-box"><h3>想把这一版,真的做成你能用的?</h3>
 <p>第一批试点免费 / 低价。交换:给真实反馈、允许脱敏做案例、觉得有用帮转介绍 1 个朋友。</p>
-<a class="wx" href="https://szhopc.cn" target="_blank" rel="noopener">去 szhopc.cn 加微信(备注「获客试点」)</a>
+<a class="wx" href="https://business.szhopc.cn" target="_blank" rel="noopener">去 business.szhopc.cn 加微信(备注「获客试点」)</a>
 <p class="sm">不卖课、不让你买软件、不碰你的账号密码。先把你现有的生意包装得更容易被看懂。</p></div>`;
 
 // ---------------- 首页 ----------------
@@ -112,7 +112,7 @@ function bindDiagnose() {
         <li><b>不是给你一个工具,是给你能直接发出去的成品。</b>AI 工具要你自己想 prompt、自己判断好坏;这里直接交付能用的文案、脚本和话术。</li>
         <li><b>懂小生意的表达,不是套通用模板。</b>诊断和样张按你这一行的真实场景做。</li>
         <li><b>先小步试,不让你赌大钱。</b>第一版只做能发出去的内容和轻页面,看反馈再决定。</li>
-        <li><b>已有 2 个真实上线作品,可直接点开看</b>(<a href="https://szhopc.cn" target="_blank" rel="noopener">szhopc.cn</a>),不是只会讲概念。</li></ul>`) +
+        <li><b>已有 2 个真实上线作品,可直接点开看</b>(<a href="https://business.szhopc.cn" target="_blank" rel="noopener">business.szhopc.cn</a>),不是只会讲概念。</li></ul>`) +
       `<p class="hint" style="margin:0 0 18px">想直接拿到内容?试试上方的「朋友圈文案」「短视频脚本」「客服话术」工具。</p>` +
       ctaBox + redo();
     showOut(out);

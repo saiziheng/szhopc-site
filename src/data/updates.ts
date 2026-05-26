@@ -8,7 +8,7 @@ export const updates: PublicUpdate[] = [
   {
     date: "2026-05-21",
     title: "个人 hub v1 搭建",
-    body: "把 szhopc.cn 定位为个人 IP / 作品集 / build in public 入口,与商单域名 17szh.cn 分开。"
+    body: "把 business.szhopc.cn 定位为个人 IP / 作品集 / build in public 入口,与商单域名 17szh.cn 分开。"
   },
   {
     date: "2026-05-21",
