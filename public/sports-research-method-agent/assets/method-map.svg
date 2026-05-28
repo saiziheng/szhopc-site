@@ -1,0 +1,37 @@
+<svg width="540" height="360" viewBox="0 0 540 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">体育科研方法链路</title>
+  <desc id="desc">从研究问题到变量结构、方法建议、报告输出的流程图</desc>
+  <rect width="540" height="360" rx="20" fill="#F7F9FC"/>
+  <path d="M58 78C96 36 158 34 200 70C238 102 281 99 322 72C373 39 443 51 481 102C518 153 501 229 450 262C409 289 365 282 327 314C283 351 212 346 176 296C148 257 101 254 71 222C35 184 25 115 58 78Z" fill="#E2EBF5"/>
+  <g filter="url(#shadow)">
+    <rect x="54" y="70" width="128" height="66" rx="12" fill="#1F3A5F"/>
+    <text x="118" y="100" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="17" font-weight="700">研究问题</text>
+    <text x="118" y="121" text-anchor="middle" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="12">主题 · 对象 · 目的</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="206" y="70" width="128" height="66" rx="12" fill="#1F7A70"/>
+    <text x="270" y="100" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="17" font-weight="700">变量结构</text>
+    <text x="270" y="121" text-anchor="middle" fill="#D8F3EF" font-family="Arial, sans-serif" font-size="12">自变量 · 因变量</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="358" y="70" width="128" height="66" rx="12" fill="#C49A3A"/>
+    <text x="422" y="100" text-anchor="middle" fill="#172033" font-family="Arial, sans-serif" font-size="17" font-weight="700">方法推荐</text>
+    <text x="422" y="121" text-anchor="middle" fill="#3C2C0B" font-family="Arial, sans-serif" font-size="12">统计 · 编码 · 图表</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="140" y="204" width="260" height="82" rx="14" fill="white"/>
+    <text x="270" y="238" text-anchor="middle" fill="#1F3A5F" font-family="Arial, sans-serif" font-size="20" font-weight="800">方法建议书</text>
+    <text x="270" y="264" text-anchor="middle" fill="#667085" font-family="Arial, sans-serif" font-size="13">流程 · 风险 · 结果描述模板</text>
+  </g>
+  <path d="M184 103H202" stroke="#1F3A5F" stroke-width="4" stroke-linecap="round"/>
+  <path d="M336 103H354" stroke="#1F7A70" stroke-width="4" stroke-linecap="round"/>
+  <path d="M422 140C413 177 382 202 345 221" stroke="#C49A3A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M118 140C128 178 158 203 196 222" stroke="#1F3A5F" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="118" cy="154" r="4" fill="#1F3A5F"/>
+  <circle cx="422" cy="154" r="4" fill="#C49A3A"/>
+  <defs>
+    <filter id="shadow" x="34" y="50" width="472" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#1F3A5F" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+</svg>

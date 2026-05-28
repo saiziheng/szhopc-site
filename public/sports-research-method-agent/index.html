@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>体育科研方法助手</title>
+    <meta
+      name="description"
+      content="面向体育专业研究生的科研方法、统计路径与结果描述辅助 Demo。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="案例选择">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">研</div>
+          <div>
+            <h1>体育科研方法助手</h1>
+            <p>研究问题到方法建议的演示版</p>
+          </div>
+        </div>
+
+        <div class="notice">
+          <strong>边界</strong>
+          <span>仅用于方法辅助，不替代导师、统计老师或论文方法专家判断。</span>
+        </div>
+
+        <nav class="case-list" aria-label="内置案例">
+          <button class="case-card active" data-case="resilience" type="button">
+            <span class="case-index">A</span>
+            <span>
+              <strong>大学生心理韧性</strong>
+              <small>问卷 · 组间比较 · 回归</small>
+            </span>
+          </button>
+          <button class="case-card" data-case="fitness" type="button">
+            <span class="case-index">B</span>
+            <span>
+              <strong>体质健康追踪</strong>
+              <small>纵向 · 前后测 · 图表</small>
+            </span>
+          </button>
+          <button class="case-card" data-case="interview" type="button">
+            <span class="case-index">C</span>
+            <span>
+              <strong>奥运冠军访谈编码</strong>
+              <small>访谈 · 扎根理论 · 模型</small>
+            </span>
+          </button>
+        </nav>
+
+        <img
+          class="method-map"
+          src="./assets/method-map.svg"
+          alt="体育科研方法链路示意图"
+        />
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="section-label">Demo v1 · 模拟数据</p>
+            <h2 id="caseTitle">大学生心理韧性</h2>
+          </div>
+          <div class="status-strip" aria-label="生成进度">
+            <span>问题</span>
+            <span>变量</span>
+            <span>方法</span>
+            <span>报告</span>
+          </div>
+        </header>
+
+        <section class="grid-layout">
+          <form class="panel input-panel" id="researchForm">
+            <div class="panel-head">
+              <h3>研究输入</h3>
+              <button class="ghost-button" id="resetCase" type="button">恢复案例</button>
+            </div>
+
+            <label>
+              <span>研究主题</span>
+              <input id="topic" name="topic" type="text" />
+            </label>
+
+            <label>
+              <span>研究对象</span>
+              <input id="participants" name="participants" type="text" />
+            </label>
+
+            <div class="field-row">
+              <label>
+                <span>数据来源</span>
+                <select id="dataSource" name="dataSource">
+                  <option value="survey">问卷</option>
+                  <option value="interview">访谈</option>
+                  <option value="fitness">体测</option>
+                  <option value="behavior">运动行为</option>
+                  <option value="intervention">教学干预</option>
+                </select>
+              </label>
+              <label>
+                <span>研究目的</span>
+                <select id="purpose" name="purpose">
+                  <option value="describe">描述现状</option>
+                  <option value="compare">比较差异</option>
+                  <option value="predict">预测关系</option>
+                  <option value="model">构建模型</option>
+                  <option value="explain">解释机制</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label>
+                <span>样本结构</span>
+                <select id="groups" name="groups">
+                  <option value="single">单组</option>
+                  <option value="two">两组</option>
+                  <option value="multi">多组</option>
+                  <option value="prepost">前后测</option>
+                  <option value="longitudinal">纵向追踪</option>
+                </select>
+              </label>
+              <label>
+                <span>核心变量类型</span>
+                <select id="variableType" name="variableType">
+                  <option value="continuous">连续变量</option>
+                  <option value="category">分类变量</option>
+                  <option value="ordinal">等级变量</option>
+                  <option value="text">文本材料</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              <span>变量结构</span>
+              <textarea id="variables" name="variables" rows="4"></textarea>
+            </label>
+          </form>
+
+          <section class="panel output-panel" aria-label="方法建议">
+            <div class="panel-head">
+              <h3>方法推荐</h3>
+              <button class="primary-button" id="copyReport" type="button">复制报告</button>
+            </div>
+
+            <div class="summary-band">
+              <div>
+                <span>研究类型</span>
+                <strong id="studyType">问卷实证研究</strong>
+              </div>
+              <div>
+                <span>数据结构</span>
+                <strong id="dataShape">两组 + 连续变量</strong>
+              </div>
+              <div>
+                <span>优先检查</span>
+                <strong id="firstCheck">信度 / 效度</strong>
+              </div>
+            </div>
+
+            <div class="recommendation-list" id="recommendations"></div>
+          </section>
+        </section>
+
+        <section class="panel report-panel">
+          <div class="panel-head">
+            <h3>生成报告</h3>
+            <span id="copyState" role="status"></span>
+          </div>
+          <pre id="reportText"></pre>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
